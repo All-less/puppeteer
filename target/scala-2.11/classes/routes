@@ -1,2 +1,0 @@
-# Homepage
-GET   /                                controllers.Homepage.index
