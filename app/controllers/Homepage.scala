@@ -1,7 +1,7 @@
 package controllers
 
 import play.api._
-import play.api.mvc._
+import play.api.mvc.{Controller, Action}
 
 class Homepage extends Controller {
 
