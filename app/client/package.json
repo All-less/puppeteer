@@ -3,9 +3,12 @@
   "version": "1.0.0",
   "description": "Webpage part for the project 'puppeteer'.",
   "scripts": {
-    "dev:build": "better-npm-run dev:build",
-    "dev:server": "better-npm-run dev:server",
-    "test": "better-npm-run test"
+    "build": "better-npm-run dev:build",
+    "lint": "eslint config src tests",
+    "lint:fix": "npm run lint -- --fix",
+    "dev": "better-npm-run dev:server",
+    "test": "better-npm-run test",
+    "test:dev": "npm run test -- --watch"
   },
   "repository": {
     "type": "git",
@@ -23,13 +26,13 @@
     }
   },
   "betterScripts": {
-    "dev:build": {
+    "build": {
       "command": "webpack --config=config/webpack.config.js --progress --display-error-details",
       "env": {
         "NODE_ENV": "development"
       }
     },
-    "dev:server": {
+    "dev": {
       "command": "webpack-dev-server --config=config/webpack.config.js --progress --display-error-details",
       "env": {
         "NODE_ENV": "development"

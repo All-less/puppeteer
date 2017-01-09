@@ -10,10 +10,11 @@ class Counter extends React.Component {
 
     render() {
         const props = this.props
-        var variables = this.props.relay.variables;
+        const variables = props.relay.variables
+        const data = props.data
         return (
             <div style={{ margin: '0 auto' }} >
-                <h2>Counter: {props.counter + ' variables:' + variables + ' factions:' + this.props.data}</h2>
+                <h2>Counter: {props.counter}</h2>
                 <button className='btn btn-default' onClick={props.increment}>
                     'Increment'
                 </button>

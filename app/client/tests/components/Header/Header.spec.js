@@ -10,12 +10,13 @@ describe('(Component) Header', () => {
     _wrapper = shallow(<Header />)
   })
 
-  it('Renders a welcome message', () => {
-    const welcome = _wrapper.find('h1')
-    expect(welcome).to.exist
-    expect(welcome.text()).to.match(/React Redux Starter Kit/)
+  it('Renders a title', () => {
+    const title = _wrapper.find('span')
+    expect(title).to.exist
+    expect(title.first().text()).to.match(/PUPPETEER/)
   })
 
+  /*
   describe('Navigation links...', () => {
     it('Should render a Link to Home route', () => {
       expect(_wrapper.contains(
@@ -33,4 +34,5 @@ describe('(Component) Header', () => {
       )).to.be.true
     })
   })
+  */
 })
