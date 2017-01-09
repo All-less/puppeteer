@@ -53,8 +53,8 @@ const RelayContainer = Relay.createContainer(connect(mapStateToProps, mapDispatc
 })
 
 export default () => (
-    <Relay.RootContainer
-        Component={RelayContainer}
-        route={new CounterContainerQuery()}
+  <Relay.RootContainer
+    Component={RelayContainer}
+    route={new CounterContainerQuery()}
     />
 )

@@ -33,7 +33,7 @@ webpackConfig.entry = {
 // Bundle Output
 // ------------------------------------
 webpackConfig.output = {
-  filename   : `[name].js`,//[${project.compiler_hash_type}]
+  filename   : `[name].js`, // [${project.compiler_hash_type}]
   path       : project.paths.dist(),
   publicPath : project.compiler_public_path
 }
@@ -226,7 +226,7 @@ webpackConfig.devServer = {
         '!**/*.js',
         '!**/*.map',
         '!**/*.txt',
-        '!**/*.xml',
+        '!**/*.xml'
       ],
       target: 'http://localhost:9000/',
       changeOrigin: true,

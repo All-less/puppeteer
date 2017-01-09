@@ -3,8 +3,7 @@ import { browserHistory, Router, applyRouterMiddleware } from 'react-router'
 import { Provider } from 'react-redux'
 import AppContainerQuery from './AppContainerQuery'
 import Relay from 'react-relay'
-import useRelay from 'react-router-relay';
-
+import useRelay from 'react-router-relay'
 
 class AppContainer extends Component {
   static propTypes = {
@@ -21,12 +20,12 @@ class AppContainer extends Component {
 
     return (
       <Provider store={store}>
-            <div style={{ height: '100%' }}>
-              <Router history={browserHistory}
-                      children={routes}
-                      render={applyRouterMiddleware(useRelay)}
-                      environment={Relay.Store}/>
-            </div>
+        <div style={{ height: '100%' }}>
+          <Router history={browserHistory}
+            children={routes}
+            render={applyRouterMiddleware(useRelay)}
+            environment={Relay.Store} />
+        </div>
       </Provider>
     )
   }
