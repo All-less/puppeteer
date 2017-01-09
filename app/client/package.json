@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Webpage part for the project 'puppeteer'.",
   "scripts": {
-    "build": "better-npm-run dev:build",
+    "build": "better-npm-run build",
     "lint": "eslint config src tests",
     "lint:fix": "npm run lint -- --fix",
-    "dev": "better-npm-run dev:server",
+    "dev": "better-npm-run dev",
     "test": "better-npm-run test",
     "test:dev": "npm run test -- --watch"
   },

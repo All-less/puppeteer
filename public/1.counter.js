@@ -1,6 +1,6 @@
 webpackJsonp([1],{
 
-/***/ 703:
+/***/ 730:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -9,15 +9,15 @@ webpackJsonp([1],{
 	  value: true
 	});
 	
-	var _reactRedux = __webpack_require__(355);
+	var _reactRedux = __webpack_require__(302);
 	
-	var _counter = __webpack_require__(704);
+	var _counter = __webpack_require__(731);
 	
-	var _reactRelay = __webpack_require__(371);
+	var _reactRelay = __webpack_require__(327);
 	
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 	
-	var _CounterContainerQuery = __webpack_require__(711);
+	var _CounterContainerQuery = __webpack_require__(738);
 	
 	var _CounterContainerQuery2 = _interopRequireDefault(_CounterContainerQuery);
 	
@@ -25,7 +25,7 @@ webpackJsonp([1],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Counter = __webpack_require__(712);
+	var _Counter = __webpack_require__(739);
 	
 	var _Counter2 = _interopRequireDefault(_Counter);
 	
@@ -110,7 +110,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 704:
+/***/ 731:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -120,11 +120,11 @@ webpackJsonp([1],{
 	});
 	exports.actions = exports.doubleAsync = exports.COUNTER_DOUBLE_ASYNC = exports.COUNTER_INCREMENT = undefined;
 	
-	var _defineProperty2 = __webpack_require__(395);
+	var _defineProperty2 = __webpack_require__(396);
 	
 	var _defineProperty3 = _interopRequireDefault(_defineProperty2);
 	
-	var _promise = __webpack_require__(705);
+	var _promise = __webpack_require__(732);
 	
 	var _promise2 = _interopRequireDefault(_promise);
 	
@@ -200,40 +200,40 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 705:
+/***/ 732:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = { "default": __webpack_require__(706), __esModule: true };
+	module.exports = { "default": __webpack_require__(733), __esModule: true };
 
 /***/ },
 
-/***/ 706:
+/***/ 733:
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(344);
-	__webpack_require__(317);
-	__webpack_require__(328);
-	__webpack_require__(707);
+	__webpack_require__(380);
+	__webpack_require__(352);
+	__webpack_require__(364);
+	__webpack_require__(734);
 	module.exports = __webpack_require__(6).Promise;
 
 /***/ },
 
-/***/ 707:
+/***/ 734:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-	var LIBRARY            = __webpack_require__(320)
+	var LIBRARY            = __webpack_require__(355)
 	  , global             = __webpack_require__(5)
 	  , ctx                = __webpack_require__(7)
-	  , classof            = __webpack_require__(500)
+	  , classof            = __webpack_require__(504)
 	  , $export            = __webpack_require__(4)
 	  , isObject           = __webpack_require__(12)
 	  , aFunction          = __webpack_require__(8)
-	  , anInstance         = __webpack_require__(597)
-	  , forOf              = __webpack_require__(598)
-	  , speciesConstructor = __webpack_require__(708)
+	  , anInstance         = __webpack_require__(601)
+	  , forOf              = __webpack_require__(602)
+	  , speciesConstructor = __webpack_require__(735)
 	  , task               = __webpack_require__(19).set
-	  , microtask          = __webpack_require__(709)()
+	  , microtask          = __webpack_require__(736)()
 	  , PROMISE            = 'Promise'
 	  , TypeError          = global.TypeError
 	  , process            = global.process
@@ -247,7 +247,7 @@ webpackJsonp([1],{
 	  try {
 	    // correct subclassing with @@species support
 	    var promise     = $Promise.resolve(1)
-	      , FakePromise = (promise.constructor = {})[__webpack_require__(327)('species')] = function(exec){ exec(empty, empty); };
+	      , FakePromise = (promise.constructor = {})[__webpack_require__(362)('species')] = function(exec){ exec(empty, empty); };
 	    // unhandled rejections tracking support, NodeJS Promise without it fails @@species test
 	    return (isNode || typeof PromiseRejectionEvent == 'function') && promise.then(empty) instanceof FakePromise;
 	  } catch(e){ /* empty */ }
@@ -425,7 +425,7 @@ webpackJsonp([1],{
 	    this._h = 0;              // <- rejection state, 0 - default, 1 - handled, 2 - unhandled
 	    this._n = false;          // <- notify
 	  };
-	  Internal.prototype = __webpack_require__(596)($Promise.prototype, {
+	  Internal.prototype = __webpack_require__(600)($Promise.prototype, {
 	    // 25.4.5.3 Promise.prototype.then(onFulfilled, onRejected)
 	    then: function then(onFulfilled, onRejected){
 	      var reaction    = newPromiseCapability(speciesConstructor(this, $Promise));
@@ -451,8 +451,8 @@ webpackJsonp([1],{
 	}
 	
 	$export($export.G + $export.W + $export.F * !USE_NATIVE, {Promise: $Promise});
-	__webpack_require__(326)($Promise, PROMISE);
-	__webpack_require__(710)(PROMISE);
+	__webpack_require__(361)($Promise, PROMISE);
+	__webpack_require__(737)(PROMISE);
 	Wrapper = __webpack_require__(6)[PROMISE];
 	
 	// statics
@@ -476,7 +476,7 @@ webpackJsonp([1],{
 	    return capability.promise;
 	  }
 	});
-	$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(501)(function(iter){
+	$export($export.S + $export.F * !(USE_NATIVE && __webpack_require__(505)(function(iter){
 	  $Promise.all(iter)['catch'](empty);
 	})), PROMISE, {
 	  // 25.4.4.1 Promise.all(iterable)
@@ -523,13 +523,13 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 708:
+/***/ 735:
 /***/ function(module, exports, __webpack_require__) {
 
 	// 7.3.20 SpeciesConstructor(O, defaultConstructor)
 	var anObject  = __webpack_require__(11)
 	  , aFunction = __webpack_require__(8)
-	  , SPECIES   = __webpack_require__(327)('species');
+	  , SPECIES   = __webpack_require__(362)('species');
 	module.exports = function(O, D){
 	  var C = anObject(O).constructor, S;
 	  return C === undefined || (S = anObject(C)[SPECIES]) == undefined ? D : aFunction(S);
@@ -537,7 +537,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 709:
+/***/ 736:
 /***/ function(module, exports, __webpack_require__) {
 
 	var global    = __webpack_require__(5)
@@ -611,7 +611,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 710:
+/***/ 737:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -619,7 +619,7 @@ webpackJsonp([1],{
 	  , core        = __webpack_require__(6)
 	  , dP          = __webpack_require__(10)
 	  , DESCRIPTORS = __webpack_require__(14)
-	  , SPECIES     = __webpack_require__(327)('species');
+	  , SPECIES     = __webpack_require__(362)('species');
 	
 	module.exports = function(KEY){
 	  var C = typeof core[KEY] == 'function' ? core[KEY] : global[KEY];
@@ -631,7 +631,7 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 711:
+/***/ 738:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -641,25 +641,25 @@ webpackJsonp([1],{
 	});
 	exports.default = undefined;
 	
-	var _getPrototypeOf = __webpack_require__(303);
+	var _getPrototypeOf = __webpack_require__(698);
 	
 	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 	
-	var _classCallCheck2 = __webpack_require__(308);
+	var _classCallCheck2 = __webpack_require__(341);
 	
 	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 	
-	var _possibleConstructorReturn2 = __webpack_require__(313);
+	var _possibleConstructorReturn2 = __webpack_require__(348);
 	
 	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 	
-	var _inherits2 = __webpack_require__(347);
+	var _inherits2 = __webpack_require__(383);
 	
 	var _inherits3 = _interopRequireDefault(_inherits2);
 	
 	var _class, _temp;
 	
-	var _reactRelay = __webpack_require__(371);
+	var _reactRelay = __webpack_require__(327);
 	
 	var _reactRelay2 = _interopRequireDefault(_reactRelay);
 	
@@ -715,32 +715,32 @@ webpackJsonp([1],{
 
 /***/ },
 
-/***/ 712:
+/***/ 739:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	    value: true
+	  value: true
 	});
 	
-	var _getPrototypeOf = __webpack_require__(303);
+	var _getPrototypeOf = __webpack_require__(698);
 	
 	var _getPrototypeOf2 = _interopRequireDefault(_getPrototypeOf);
 	
-	var _classCallCheck2 = __webpack_require__(308);
+	var _classCallCheck2 = __webpack_require__(341);
 	
 	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 	
-	var _createClass2 = __webpack_require__(309);
+	var _createClass2 = __webpack_require__(701);
 	
 	var _createClass3 = _interopRequireDefault(_createClass2);
 	
-	var _possibleConstructorReturn2 = __webpack_require__(313);
+	var _possibleConstructorReturn2 = __webpack_require__(348);
 	
 	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 	
-	var _inherits2 = __webpack_require__(347);
+	var _inherits2 = __webpack_require__(383);
 	
 	var _inherits3 = _interopRequireDefault(_inherits2);
 	
@@ -753,46 +753,47 @@ webpackJsonp([1],{
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var Counter = (_temp = _class = function (_React$Component) {
-	    (0, _inherits3.default)(Counter, _React$Component);
+	  (0, _inherits3.default)(Counter, _React$Component);
 	
-	    function Counter() {
-	        (0, _classCallCheck3.default)(this, Counter);
-	        return (0, _possibleConstructorReturn3.default)(this, (Counter.__proto__ || (0, _getPrototypeOf2.default)(Counter)).apply(this, arguments));
+	  function Counter() {
+	    (0, _classCallCheck3.default)(this, Counter);
+	    return (0, _possibleConstructorReturn3.default)(this, (Counter.__proto__ || (0, _getPrototypeOf2.default)(Counter)).apply(this, arguments));
+	  }
+	
+	  (0, _createClass3.default)(Counter, [{
+	    key: 'render',
+	    value: function render() {
+	      var props = this.props;
+	      var variables = props.relay.variables;
+	      var data = props.data;
+	      return _react2.default.createElement(
+	        'div',
+	        { style: { margin: '0 auto' } },
+	        _react2.default.createElement(
+	          'h2',
+	          null,
+	          'Counter: ',
+	          props.counter
+	        ),
+	        _react2.default.createElement(
+	          'button',
+	          { className: 'btn btn-default', onClick: props.increment },
+	          '\'Increment\''
+	        ),
+	        ' ',
+	        _react2.default.createElement(
+	          'button',
+	          { className: 'btn btn-default', onClick: props.doubleAsync },
+	          'Double (Async)'
+	        )
+	      );
 	    }
-	
-	    (0, _createClass3.default)(Counter, [{
-	        key: 'render',
-	        value: function render() {
-	            var props = this.props;
-	            var variables = this.props.relay.variables;
-	            return _react2.default.createElement(
-	                'div',
-	                { style: { margin: '0 auto' } },
-	                _react2.default.createElement(
-	                    'h2',
-	                    null,
-	                    'Counter: ',
-	                    props.counter + ' variables:' + variables + ' factions:' + this.props.data
-	                ),
-	                _react2.default.createElement(
-	                    'button',
-	                    { className: 'btn btn-default', onClick: props.increment },
-	                    '\'Increment\''
-	                ),
-	                ' ',
-	                _react2.default.createElement(
-	                    'button',
-	                    { className: 'btn btn-default', onClick: props.doubleAsync },
-	                    'Double (Async)'
-	                )
-	            );
-	        }
-	    }]);
-	    return Counter;
+	  }]);
+	  return Counter;
 	}(_react2.default.Component), _class.propTypes = {
-	    counter: _react2.default.PropTypes.number.isRequired,
-	    doubleAsync: _react2.default.PropTypes.func.isRequired,
-	    increment: _react2.default.PropTypes.func.isRequired
+	  counter: _react2.default.PropTypes.number.isRequired,
+	  doubleAsync: _react2.default.PropTypes.func.isRequired,
+	  increment: _react2.default.PropTypes.func.isRequired
 	}, _temp);
 	exports.default = Counter;
 
