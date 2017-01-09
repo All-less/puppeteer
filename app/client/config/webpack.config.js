@@ -221,7 +221,13 @@ webpackConfig.devServer = {
       logLevel: 'warn'
     },
     {
-      context: ['**', '!/*.js', '!/*.map'], // exclude js scripts and source maps
+      context: [
+        '**',
+        '!**/*.js',
+        '!**/*.map',
+        '!**/*.txt',
+        '!**/*.xml',
+      ],
       target: 'http://localhost:9000/',
       changeOrigin: true,
       pathRewrite: { '^/.*': '/' },

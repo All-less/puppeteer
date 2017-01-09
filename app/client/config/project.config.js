@@ -33,7 +33,7 @@ const config = {
   // ----------------------------------
   compiler_babel : {
     cacheDirectory : true,
-    plugins        : [ 'babel-relay-plugin-loader', 'transform-runtime'],
+    plugins        : [ 'babel-relay-plugin-loader', 'transform-runtime', 'transform-decorators-legacy'],
     presets        : [ 'es2015', 'react', 'stage-0']
   },
   compiler_devtool         : 'source-map',

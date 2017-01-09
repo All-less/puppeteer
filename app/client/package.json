@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Webpage part for the project 'puppeteer'.",
   "scripts": {
-    "dev": "better-npm-run dev",
+    "dev:build": "better-npm-run dev:build",
+    "dev:server": "better-npm-run dev:server",
     "test": "better-npm-run test"
   },
   "repository": {
@@ -22,7 +23,13 @@
     }
   },
   "betterScripts": {
-    "dev": {
+    "dev:build": {
+      "command": "webpack --config=config/webpack.config.js --progress --display-error-details",
+      "env": {
+        "NODE_ENV": "development"
+      }
+    },
+    "dev:server": {
       "command": "webpack-dev-server --config=config/webpack.config.js --progress --display-error-details",
       "env": {
         "NODE_ENV": "development"
@@ -41,6 +48,7 @@
     "babel-eslint": "^7.1.0",
     "babel-loader": "^6.2.5",
     "babel-plugin-istanbul": "^3.0.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-plugin-transform-runtime": "^6.15.0",
     "babel-polyfill": "^6.20.0",
     "babel-preset-es2015": "^6.14.0",
@@ -91,6 +99,7 @@
     "postcss-loader": "^1.1.0",
     "react": "^15.0.0",
     "react-addons-test-utils": "^15.0.0",
+    "react-async-script-loader": "^0.2.2",
     "react-dom": "^15.0.0",
     "react-redux": "^5.0.1",
     "react-relay": "^0.10.0",
