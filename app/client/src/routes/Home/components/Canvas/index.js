@@ -1,13 +1,16 @@
 import React from 'react'
-import './style.scss'
+
 import { CanvasWidget } from '../Editor'
-
 import Engine from '../Editor/FakeData'
+import style from './style.scss'
 
-export const HomeView = () => {
+
+const Canvas = () => {
   return (
     <div style={{ height: '100%' }}>
       <CanvasWidget engine={Engine} />
     </div>
   )
 }
+
+export default Canvas

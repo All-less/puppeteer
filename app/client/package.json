@@ -122,5 +122,8 @@
     "webpack-dev-server": "^1.16.2",
     "webpack-hot-middleware": "^2.12.2",
     "yargs": "^6.3.0"
+  },
+  "dependencies": {
+    "classnames": "^2.2.5"
   }
 }

@@ -1,0 +1,38 @@
+@import '../../../../styles/colors.scss';
+
+@mixin item-base {
+  display: block;
+  text-decoration: none;
+
+  .selected {
+    background-color: $selection-color;
+  }
+}
+
+.item {
+  @include item-base;
+
+  padding: 16px;
+
+  .icon {
+    width: 36px;
+    display: inline-block;
+  }
+
+  .text {
+    margin-left: 16px;
+    color: $primary-text-color;
+  }
+}
+
+.subitem {
+  @include item-base;
+
+  padding: 4px;
+
+  .text {
+    margin-left: 32px;
+    color: $secondary-text-color;
+    font-size: 13px;
+  }
+}

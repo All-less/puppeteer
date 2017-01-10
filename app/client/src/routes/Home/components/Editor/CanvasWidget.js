@@ -3,38 +3,31 @@ var SVGWidget = require("./SVGWidget");
 var NodeView = require("./NodeViewWidget");
 var _ = require("lodash");
 
-import './style.scss'
+import style from './style.scss'
 
-/**
- * @author Dylan Vorster
- */
-module.exports = React.createClass({
-	displayName: "CanvasWidget",
-	getInitialState: function () {
-		return {
-			selectedPointID: null,
-			selectedLink: null,
-			selectedModel: null,
-			initialX: null,
-			initialY: null,
-			initialObjectX: null,
-			initialObjectY: null,
-			listenerID: null
-		};
-	},
+export default class CanvasWidget extends React.Component {
 
-	getDefaultProps: function () {
-		return {
-			engine: null
-		};
-	},
+	state = {
+		selectedPointID: null,
+		selectedLink: null,
+		selectedModel: null,
+		initialX: null,
+		initialY: null,
+		initialObjectX: null,
+		initialObjectY: null,
+		listenerID: null
+	}
 
-	componentWillUnmount: function(){
+	static props = {
+		engine: null
+	}
+
+	componentWillUnmount() {
 		this.props.engine.removeListener(this.state.listenerID);
-		window.removeEventListener('keydown',this.state.windowListener);
-	},
+		window.removeEventListener('keydown', this.state.windowListener);
+	}
 
-	componentDidMount: function(){
+	componentDidMount() {
 		this.props.engine.state.canvas = this.refs.canvas;
 		var listenerID = this.props.engine.registerListener(function(event){
 			if(event.type === 'repaint'){
@@ -69,17 +62,18 @@ module.exports = React.createClass({
 			}.bind(this))
 		});
 		window.focus();
-	},
-	render: function () {
+	}
+
+	render() {
 		return (
-			React.DOM.div({
-					ref:'canvas',
-					className:'storm-flow-canvas',
-					onWheel: function(event){
+			<div
+				className={style.stormFlowCanvas}
+				ref="canvas"
+				onWheel={function(event){
 						this.props.engine.setZoom(this.props.engine.state.zoom+(event.deltaY/60));
 						this.props.engine.repaintNodes([]);
-					}.bind(this),
-					onMouseMove: function(event){
+					}.bind(this)}
+				onMouseMove={function(event){
 
 						//move the node
 						if(this.state.selectedModel){
@@ -106,8 +100,8 @@ module.exports = React.createClass({
 							this.props.engine.repaintNodes([]);
 						}
 
-					}.bind(this),
-					onMouseDown: function(event){
+					}.bind(this)}
+					onMouseDown={function(event){
 
 						this.props.engine.setSelectedNode(null);
 
@@ -170,8 +164,8 @@ module.exports = React.createClass({
 							initialObjectX: this.props.engine.state.offsetX,
 							initialObjectY: this.props.engine.state.offsetY
 						});
-					}.bind(this),
-					onMouseUp: function(event){
+					}.bind(this)}
+					onMouseUp={function(event){
 						if(this.state.selectedPointID){
 							var element = event.target.closest('.port[data-name]');
 							if(element){
@@ -201,7 +195,6 @@ module.exports = React.createClass({
 								}
 							}
 						}
-
 						this.setState({
 							selectedLink: null,
 							selectedPort: null,
@@ -212,16 +205,14 @@ module.exports = React.createClass({
 							initialObjectX: null,
 							initialObjectY: null
 						});
-					}.bind(this),
-				},
-				React.createElement(SVGWidget,{newPoint: function(link,pointID){
-					this.setState({
-						selectedPointID: pointID,
-						selectedLink: link
-					});;
-				}.bind(this),engine: this.props.engine}),
-				React.createElement(NodeView,{engine: this.props.engine})
+					}.bind(this)}
+				>
+				<SVGWidget
+					newPoint={((link, pointID) => { this.setState({selectedPointID: pointID, selectedLink: link}) }).bind(this)}
+					engine={this.props.engine}/>
+				<NodeView
+					engine={this.props.engine}/>
+			</div>
 			)
-		);
 	}
-});
+}

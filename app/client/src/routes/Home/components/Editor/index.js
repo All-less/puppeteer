@@ -4,7 +4,7 @@ var React = require("react");
  */
 module.exports = {
 	Engine: require("./Engine"),
-	CanvasWidget: require("./CanvasWidget"),
+	CanvasWidget: require("./CanvasWidget").default,
 	PortWidget: require("./PortWidget"),
 	BasicNodeWidget: require("./BasicNodeWidget"),
 

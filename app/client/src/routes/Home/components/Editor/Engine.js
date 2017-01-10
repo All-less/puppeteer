@@ -16,11 +16,11 @@ module.exports = function(){
 			listeners:{},
 			selectedLink: null,
 			selectedNode: null,
-			
+
 			updatingNodes: null,
 			updatingLinks: null
 		},
-		
+
 		repaintLinks: function(links){
 			this.state.updatingNodes = {};
 			this.state.updatingLinks = {};
@@ -29,11 +29,11 @@ module.exports = function(){
 			}.bind(this));
 			this.update();
 		},
-		
+
 		repaintNodes: function(nodes){
 			this.state.updatingNodes = {};
 			this.state.updatingLinks = {};
-			
+
 			//store the updating node is's
 			nodes.forEach(function(node){
 				this.state.updatingNodes[node.id] = node;
@@ -41,14 +41,14 @@ module.exports = function(){
 					this.state.updatingLinks[link.id] = link;
 				}.bind(this));
 			}.bind(this));
-			
+
 			this.update();
 		},
-		
+
 		update: function(){
 			this.fireEvent({type:'repaint'});
 		},
-		
+
 		getRelativeMousePoint: function(event){
 			var point = this.getRelativePoint(event.pageX,event.pageY);
 			return {
@@ -56,39 +56,39 @@ module.exports = function(){
 				y:(point.y/(this.state.zoom/100.0))-this.state.offsetY
 			};
 		},
-		
+
 		getRelativePoint: function(x,y){
 			var canvasRect = this.state.canvas.getBoundingClientRect();
 			return {x: x-canvasRect.left,y:y-canvasRect.top};
 		},
-		
+
 		fireEvent: function(event){
 			_.forEach(this.state.listeners,function(listener){
 				listener(event);
 			});
 		},
-		
+
 		removeListener: function(id){
 			delete this.state.listeners[id];
 		},
-		
+
 		registerListener: function(cb){
 			var id = this.UID();
 			this.state.listeners[id] = cb;
 			return id;
 		},
-		
+
 		setZoom: function(zoom){
 			this.state.zoom = zoom;
 			this.update();
 		},
-		
+
 		setOffset: function(x,y){
 			this.state.offsetX = x;
 			this.state.offsetY = y;
 			this.update();
 		},
-		
+
 		loadModel: function(model){
 			this.state.links = {};
 			this.state.node = {};
@@ -101,9 +101,9 @@ module.exports = function(){
 				this.addLink(link);
 			}.bind(this));
 		},
-		
+
 		updateNode: function(node){
-			
+
 			//find the links and move those as well
 			this.getNodeLinks(node);
 			this.fireEvent({type:'repaint'});
@@ -115,7 +115,7 @@ module.exports = function(){
 				return v.toString(16);
 			});
 		},
-		
+
 		getNodePortElement: function(node,port){
 			return this.state.canvas.querySelector('.port[data-name="'+port+'"][data-nodeid="'+node.id+'"]');
 		},
@@ -133,42 +133,42 @@ module.exports = function(){
 				return false;
 			});
 		},
-		
+
 		getNodeID: function(node){
 			if(typeof node === 'object'){
 				node = node.id;
 			}
 			return node;
 		},
-		
+
 		getNodeLinks: function(node){
 			var nodeID = this.getNodeID(node);
 			return _.values(_.filter(this.state.links,function(link,index){
 				return link.source == nodeID || link.target == nodeID;
 			}));
 		},
-		
+
 		removeLink: function(link){
 			delete this.state.links[link.id];
 			this.update();
 		},
-		
+
 		removeNode: function(node){
-			//remove the links 
+			//remove the links
 			var links = this.getNodeLinks(node);
 			links.forEach(function(link){
 				this.removeLink(link);
 			}.bind(this));
-			
+
 			//remove the node
 			delete this.state.nodes[node.id];
 			this.update();
 		},
-		
+
 		getPortCenter: function(node,port){
 			var sourceElement = this.getNodePortElement(node,port);
 			var sourceRect = sourceElement.getBoundingClientRect();
-			
+
 			var rel = this.getRelativePoint(sourceRect.left,sourceRect.top);
 
 			return {
@@ -176,7 +176,7 @@ module.exports = function(){
 				y: ((sourceElement.offsetHeight/2)+rel.y/(this.state.zoom/100.0)) -(this.state.offsetY)
 			};
 		},
-		
+
 		setSelectedNode: function(node){
 			this.state.selectedLink = null;
 			this.state.selectedNode = node;
@@ -184,7 +184,7 @@ module.exports = function(){
 			this.state.updatingLinks = null;
 			this.update();
 		},
-		
+
 		setSelectedLink: function(link){
 			this.state.selectedNode = null;
 			this.state.selectedLink = link;
@@ -198,11 +198,11 @@ module.exports = function(){
 				id: this.UID(),
 				source: null,
 				sourcePort: null,
-				target: null, 
+				target: null,
 				targetPort: null,
 				points: []
 			});
-		
+
 			this.state.links[FinalLink.id] = FinalLink;
 			return FinalLink;
 		},
@@ -212,7 +212,7 @@ module.exports = function(){
 			if(event !== undefined){
 				point = this.getRelativeMousePoint(event);
 			}
-			
+
 			var FinalNode = _.defaults(node,{
 				id: this.UID(),
 				type: 'default',
@@ -222,15 +222,15 @@ module.exports = function(){
 			});
 			this.state.nodes[FinalNode.id] = FinalNode;
 		},
-		
+
 		getLink: function(id){
 			return this.state.links[id];
 		},
-		
+
 		getNode: function(id){
 			return this.state.nodes[id];
 		},
-		
+
 		getNodeFactory: function(type){
 			if(this.state.factories[type] === undefined){
 				throw "Cannot find node factory for: "+type;
