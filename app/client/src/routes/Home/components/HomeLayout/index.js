@@ -2,7 +2,7 @@ import React from 'react'
 import cn from 'classnames'
 
 import Header from '../../../../components/Header'
-import Canvas from '../Canvas'
+import Editor from '../Editor'
 import StepMenu from '../StepMenu'
 
 import style from './style.scss'
@@ -20,7 +20,7 @@ class HomeLayout extends React.Component {
             <StepMenu />
           </div>
           <div className={cn('mdl-cell', 'mdl-cell--10-col', style.part)}>
-            <Canvas />
+            <Editor />
           </div>
         </div>
       </div>

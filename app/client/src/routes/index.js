@@ -5,7 +5,7 @@ import CounterRoute from './Counter'
 export const createRoutes = (store) => ({
   path        : '/',
   component   : AppContainer,
-  indexRoute  : HomeRoute,
+  indexRoute  : HomeRoute(store),
   childRoutes : [
     CounterRoute(store)
   ]

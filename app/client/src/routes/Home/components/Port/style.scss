@@ -1,0 +1,33 @@
+@mixin portSquare {
+    min-width: 15px;
+    min-height: 15px;
+    background: rgba(white, 0.1);
+    &:hover {
+        background: rgb(192,255,0);
+    }
+}
+
+.port {
+    display: flex;
+    flex-direction: row;
+
+    .inPortName {
+        order: 2;
+        margin-left: 4px;
+    }
+
+    .inPortSquare {
+        @include portSquare;
+        order: 1;
+    }
+
+    .outPortName {
+        order: 1;
+        margin-right: 4px;
+    }
+
+    .outPortSquare {
+        @include portSquare;
+        order: 2;
+    }
+}
