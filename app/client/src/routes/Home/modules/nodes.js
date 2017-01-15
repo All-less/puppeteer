@@ -10,36 +10,40 @@ export const setPortPos = createAction(
   'NODES/SET_PORT_POS',
   (nodeId, portType, portName, pos) => ({ path: [ nodeId, portType, portName ], pos})
 )
-export const switchSelect = createAction(
-  'NODES/SWITCH_SELECT',
-  (nodeId) => nodeId
-)
 export const moveNode = createAction(
   'NODES/MOVE_NODE',
   (nodeId, deltaX, deltaY) => ({ nodeId, deltaX, deltaY })
 )
+export const createNode = createAction(
+  'NODES/CREATE_NODE',
+  (id, x, y, type, subtype) => ({ id, pos: [x, y], type, subtype })
+)
+export const updateNodePos = createAction(
+  'NODES/UPDATE_NODE_POS',
+  (id, x, y) => ({ id, pos: [x, y] })
+)
+export const removeNode = createAction(
+  'NODES/REMOVE_NODE',
+  (nodeId) => nodeId
+)
 
 const initialState = {
-  shortid1: {
-    pos: [100, 100],
-    type: 'source',
-    selected: false,
-    outPorts: {
-      'raw data': {computed: false, pos: [0, 0] }
-    },
-    inPorts: {}
-  },
-  shortid2: {
-    pos: [350, 100],
-    type: 'preprocess',
-    selected: false,
-    outPorts: {
-      'dataset': {computed: false, pos: [0, 0] }
-    },
+  /*
+  <node id>: {
+    pos: [<clientX>, <clientY>],
+    type: <type>,
     inPorts: {
-      'raw data': {computed: false, pos: [0, 0] }
+      <port name>: {
+        computed: <whether pos is ready>,
+        pos: [<clientX>, <clientY>]
+      },
+      ...
+    },
+    outPorts: {
+      ...
     }
   }
+   */
 }
 
 const handlerMap = {
@@ -57,15 +61,33 @@ const handlerMap = {
     _.forOwn(node['outPorts'], update)
     return { [action.payload]: node, ...state }
   },
-  [switchSelect]: (state, action) => {
-    const res = _.assign({}, state)
-    return _.update(res, [action.payload, 'selected'], (value) => (!value))
-  },
   [moveNode]: (state, action) => {
     const res = _.assign({}, state)
     const { nodeId, deltaX, deltaY } = action.payload
-    const pos = res[nodeId]['pos']
-    res[nodeId]['pos'] = [pos[0] + deltaX, pos[1] + deltaY]
+    return _.update(res, [nodeId, 'pos'], ([x, y]) => ([x + deltaX, y + deltaY]))
+  },
+  [createNode]: (state, action) => {
+    const { id, pos, type } = action.payload
+    return _.assign(
+      {
+        [id]: {
+          type,
+          pos,
+          inPorts: { in: { computed: false, pos: [0, 0] } },
+          outPorts: { out: { computed: false, pos: [0, 0] } }
+        }
+      },
+      state
+    )
+  },
+  [updateNodePos]: (state, action) => {
+    const { id, pos } = action.payload
+    const res = _.assign({}, state)
+    return _.update(res, [id, 'pos'], () => pos)
+  },
+  [removeNode]: (state, action) => {
+    const res = _.assign({}, state)
+    _.unset(res, action.payload)
     return res
   }
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import { VelocityTransitionGroup } from 'velocity-react';
 import cn from 'classnames'
 import _ from 'lodash'
+import invariant from 'invariant'
 
 import style from './style.scss'
 
@@ -10,8 +11,46 @@ class StepMenu extends React.Component {
 
   static propTypes = {
     items: React.PropTypes.array.isRequired,
+    creatingNodeId: React.PropTypes.string,
 
-    toggle: React.PropTypes.func.isRequired
+    toggle: React.PropTypes.func.isRequired,
+    createNode: React.PropTypes.func.isRequired,
+    updateNodePos: React.PropTypes.func.isRequired,
+    setCreating: React.PropTypes.func.isRequired,
+    removeNode: React.PropTypes.func.isRequired
+  }
+
+  constructor(props) {
+    super(props)
+    this.handleMouseMove = this.handleMouseMove.bind(this)
+    this.handleMouseUp = this.handleMouseUp.bind(this)
+    this.handleMouseDown = this.handleMouseDown.bind(this)
+  }
+
+   handleMouseMove(event) {
+    event.preventDefault()
+    const { creatingNodeId, updateNodePos } = this.props
+    if (creatingNodeId) {
+      updateNodePos(creatingNodeId, event.clientX, event.clientY)
+    }
+  }
+
+  handleMouseUp(event) {
+    event.preventDefault()
+    const { creatingNodeId, setCreating, removeNode } = this.props
+    if (creatingNodeId) {
+      removeNode(creatingNodeId)
+      setCreating(null)
+    }
+  }
+
+  handleMouseDown(type, subtype, event) {
+    event.preventDefault()
+    const { creatingNodeId, setCreating, createNode } = this.props
+    invariant(!creatingNodeId, 'The creatingNodeId is not null when attempting to create a node.')
+    const id = _.uniqueId()
+    setCreating(id)
+    createNode(id, event.clientX, event.clientY, `${type} - ${subtype}`, subtype)
   }
 
   render() {
@@ -26,7 +65,9 @@ class StepMenu extends React.Component {
     return (
       <aside
         className={asideClass}
-        style={{ 'height': '100%', 'overflow': 'scroll' }}>
+        style={{ 'height': '100%', 'overflow': 'scroll' }}
+        onMouseMove={this.handleMouseMove}
+        onMouseUp={this.handleMouseUp}>
         {
           items.map((item, index) => (
             <div key={index}>
@@ -38,7 +79,8 @@ class StepMenu extends React.Component {
                 {
                   item.expanded && item.subitems.map((name, index) => (
                     <div key={index}>
-                      <a key={index} className={subitemClass} href='#'>
+                      <a key={index} className={subitemClass} href='#'
+                        onMouseDown={this.handleMouseDown.bind(this, item.name, name)}>
                         <span className={textClass}>{name}</span>
                       </a>
                     </div>
