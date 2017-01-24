@@ -1,0 +1,25 @@
+@import '../../../../styles/colors.scss';
+
+@mixin portSquare {
+    width: 8px;
+    height: 8px;
+    background: $primary-color;
+    border-radius: 4px;
+    position: relative;
+
+    cursor: auto;
+
+    &:hover {
+        background: $primary-color-dark;
+    }
+}
+
+.inPort {
+    @include portSquare;
+    left: -5px;
+}
+
+.outPort {
+    @include portSquare;
+    right: -5px;
+}

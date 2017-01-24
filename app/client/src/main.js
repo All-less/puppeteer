@@ -1,7 +1,10 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import createStore from './store/createStore'
-import AppContainer from './containers/AppContainer'
+import { browserHistory, Router, applyRouterMiddleware } from 'react-router'
+import { Provider } from 'react-redux'
+import Relay from 'react-relay'
+import useRelay from 'react-router-relay'
 
 // ========================================================
 // Store Instantiation
@@ -16,9 +19,17 @@ const MOUNT_NODE = document.getElementById('root')
 
 let render = () => {
   const routes = require('./routes/index').default(store)
+  const root = (
+    <Provider store={store}>
+      <Router history={browserHistory}
+        children={routes}
+        render={applyRouterMiddleware(useRelay)}
+        environment={Relay.Store} />
+    </Provider>
+  )
 
   ReactDOM.render(
-    <AppContainer store={store} routes={routes} />,
+    root,
     MOUNT_NODE
   )
 }

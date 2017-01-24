@@ -1,6 +1,6 @@
 import React from 'react'
 import { bindActionCreators } from 'redux'
-import { Counter } from 'routes/Counter/components/Counter'
+import Counter from 'routes/Counter/components/Counter'
 import { shallow } from 'enzyme'
 
 describe('(Component) Counter', () => {
@@ -15,7 +15,7 @@ describe('(Component) Counter', () => {
         increment   : (_spies.increment = sinon.spy())
       }, _spies.dispatch = sinon.spy())
     }
-    _wrapper = shallow(<Counter {/* ..._props */}/>)
+    _wrapper = shallow(<Counter {..._props} />)
   })
 
   it('Should render as a <div>.', () => {

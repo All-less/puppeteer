@@ -1,0 +1,43 @@
+@import '../../../../styles/colors.scss';
+
+@mixin item-base {
+  display: block;
+  text-decoration: none;
+
+  .selected {
+    background-color: $selection-color;
+  }
+
+  &:hover {
+    background-color: rgba(33, 150, 243, 0.1);
+    box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.1);
+  }
+}
+
+.item {
+  @include item-base;
+
+  padding: 16px;
+
+  .icon {
+    width: 36px;
+    display: inline-block;
+  }
+
+  .text {
+    margin-left: 16px;
+    color: $primary-text-color;
+  }
+}
+
+.subitem {
+  @include item-base;
+
+  padding: 4px;
+
+  .text {
+    margin-left: 32px;
+    color: $secondary-text-color;
+    font-size: 13px;
+  }
+}
