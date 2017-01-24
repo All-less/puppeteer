@@ -18,7 +18,8 @@ const mapStateToProps = (state) => ({
   creatingLink: state.editor.creatingLink,
   nodeMap: state.nodes,
   linkMap: state.links,
-  creatingLink: state.editor.creatingLink
+  creatingLink: state.editor.creatingLink,
+  deltaPos: state.editor.deltaPos
 })
 
 const mapDispatchToProps = {

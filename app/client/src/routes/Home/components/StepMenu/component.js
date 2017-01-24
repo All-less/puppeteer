@@ -44,13 +44,13 @@ class StepMenu extends React.Component {
     }
   }
 
-  handleMouseDown(type, subtype, event) {
+  handleMouseDown(type, subtype, color, event) {
     event.preventDefault()
     const { creatingNodeId, setCreating, createNode } = this.props
     invariant(!creatingNodeId, 'The creatingNodeId is not null when attempting to create a node.')
     const id = _.uniqueId()
     setCreating(id)
-    createNode(id, event.clientX, event.clientY, `${type} - ${subtype}`, subtype)
+    createNode(id, event.clientX, event.clientY, type, subtype, color)
   }
 
   render() {
@@ -80,7 +80,7 @@ class StepMenu extends React.Component {
                   item.expanded && item.subitems.map((name, index) => (
                     <div key={index}>
                       <a key={index} className={subitemClass} href='#'
-                        onMouseDown={this.handleMouseDown.bind(this, item.name, name)}>
+                        onMouseDown={this.handleMouseDown.bind(this, item.name, name, item.color)}>
                         <span className={textClass}>{name}</span>
                       </a>
                     </div>

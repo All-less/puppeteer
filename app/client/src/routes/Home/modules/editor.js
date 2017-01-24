@@ -8,6 +8,7 @@ export const setSelected = createAction('EDITOR/SET_SELECTED', nodeId => nodeId)
 export const startLink = createAction('EDITOR/START_LINK', (id, port, type, x, y) => ({ src: { id, port, type }, pos: [x, y] }))
 export const updateLinkEnd = createAction('EDITOR/UPDATE_LINK_END', (x, y) => [x, y])
 export const stopLink = createAction('EDITOR/STOP_LINK')
+export const updateDeltaPos = createAction('EDITOR/UPDATE_DELTA_POS', (x, y) => [x, y])
 
 const initialState = {
   origin: [0, 0], // the top-left position of editor
@@ -16,7 +17,8 @@ const initialState = {
   creatingLink: false,
   creatingLinkSrc: null,
   creatingLinkStart: [0, 0],
-  creatingLinkEnd: [0, 0]
+  creatingLinkEnd: [0, 0],
+  deltaPos: [0, 0] // position delta between click point and node origin
 }
 
 const handlerMap = {
@@ -35,7 +37,8 @@ const handlerMap = {
     creatingLinkEnd: action.payload.pos
   }),
   [updateLinkEnd]: (state, action) => ({ ...state, creatingLinkEnd: action.payload }),
-  [stopLink]: (state, action) => ({ ...state, creatingLink: false })
+  [stopLink]: (state, action) => ({ ...state, creatingLink: false }),
+  [updateDeltaPos]: (state, action) => ({ ...state, deltaPos: action.payload })
 }
 
 export default handleActions(handlerMap, initialState)

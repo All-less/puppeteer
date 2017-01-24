@@ -1,33 +1,25 @@
+@import '../../../../styles/colors.scss';
+
 @mixin portSquare {
-    min-width: 15px;
-    min-height: 15px;
-    background: rgba(white, 0.1);
+    width: 8px;
+    height: 8px;
+    background: $primary-color;
+    border-radius: 4px;
+    position: relative;
+
+    cursor: auto;
+
     &:hover {
-        background: rgb(192,255,0);
+        background: $primary-color-dark;
     }
 }
 
-.port {
-    display: flex;
-    flex-direction: row;
+.inPort {
+    @include portSquare;
+    left: -5px;
+}
 
-    .inPortName {
-        order: 2;
-        margin-left: 4px;
-    }
-
-    .inPortSquare {
-        @include portSquare;
-        order: 1;
-    }
-
-    .outPortName {
-        order: 1;
-        margin-right: 4px;
-    }
-
-    .outPortSquare {
-        @include portSquare;
-        order: 2;
-    }
+.outPort {
+    @include portSquare;
+    right: -5px;
 }

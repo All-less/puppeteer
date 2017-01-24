@@ -11,6 +11,7 @@ class Port extends React.Component {
     name: React.PropTypes.string.isRequired,
     // only 'in' and 'out' are allowed
     type: React.PropTypes.string.isRequired,
+    color: React.PropTypes.string.isRequired,
     creatingLink: React.PropTypes.bool.isRequired,
     creatingLinkSrc: React.PropTypes.object,
 
@@ -49,7 +50,7 @@ class Port extends React.Component {
   handleMouseDown(event) {
     event.preventDefault()
     event.stopPropagation()
-    const { creatingLink, startLink, nodeId, name, type } = this.props
+    const { creatingLink, startLink, nodeId, name, type, color } = this.props
     invariant(
       !creatingLink,
       'state.editor.creatingLink should be false when attempting to start link'
@@ -58,20 +59,23 @@ class Port extends React.Component {
   }
 
   render() {
-    const { type, name, nodeId, creatingLink } = this.props
+    const { type, name, nodeId, color, creatingLink } = this.props
     const isInPort = (type === 'in')
     return (
       <div
-        className={style.port}
+        className={isInPort ? style.inPort : style.outPort}
         onMouseDown={this.handleMouseDown}
-        onMouseUp={creatingLink && this.handleMouseUp}>
+        onMouseUp={creatingLink && this.handleMouseUp}
+        ref={(e) => { e && this.updatePortPos(e) }}>
         <div
           className={isInPort ? style.inPortSquare : style.outPortSquare}
-          ref={(e) => { e && this.updatePortPos(e) }}
+
         />
+        {/*
         <div className={isInPort ? style.inPortName : style.outPortName}>
           {name}
         </div>
+        */}
       </div>
     )
   }

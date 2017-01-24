@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 
 import NodeElement from './component'
 import { setPortPos, resetPortPos } from '../../modules/nodes'
-import { setSelected } from '../../modules/editor'
+import { setSelected, updateDeltaPos } from '../../modules/editor'
 
 
 const mapStateToProps = (state) => ({
@@ -13,7 +13,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   setPortPos,
   resetPortPos,
-  setSelected
+  setSelected,
+  updateDeltaPos
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(NodeElement)

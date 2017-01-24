@@ -15,6 +15,7 @@ class Editor extends React.Component {
     nodeMap: React.PropTypes.object.isRequired,
     linkMap: React.PropTypes.object.isRequired,
     creatingLink: React.PropTypes.bool.isRequired,
+    deltaPos: React.PropTypes.array.isRequired,
 
     updateOrigin: React.PropTypes.func.isRequired,
     setSelected: React.PropTypes.func.isRequired,
@@ -39,9 +40,10 @@ class Editor extends React.Component {
   handleMouseMove(event) {
     event.preventDefault()
     const {
-      selectedNodeId, updateNodePos, creatingNodeId, creatingLink, updateLinkEnd
+      selectedNodeId, updateNodePos, creatingNodeId, creatingLink, updateLinkEnd,
+      deltaPos
     } = this.props
-    selectedNodeId && updateNodePos(selectedNodeId, event.clientX, event.clientY)
+    selectedNodeId && updateNodePos(selectedNodeId, event.clientX - deltaPos[0], event.clientY - deltaPos[1])
     creatingNodeId && updateNodePos(creatingNodeId, event.clientX, event.clientY)
     creatingLink && updateLinkEnd(event.clientX, event.clientY)
   }
