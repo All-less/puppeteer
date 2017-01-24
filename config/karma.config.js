@@ -71,4 +71,3 @@ if (project.globals.__COVERAGE__) {
 }
 
 module.exports = (cfg) => cfg.set(karmaConfig)
-

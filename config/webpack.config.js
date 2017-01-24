@@ -24,8 +24,12 @@ const webpackConfig = {
 // ------------------------------------
 // Entry Points
 // ------------------------------------
+const APP_ENTRY = project.paths.client('main.js')
+
 webpackConfig.entry = {
-  app : project.paths.client('main.js'),
+  app : __DEV__
+    ? [APP_ENTRY].concat(`webpack-hot-middleware/client?path=${project.compiler_public_path}__webpack_hmr`)
+    : [APP_ENTRY],
   vendor : project.compiler_vendors
 }
 
@@ -33,7 +37,7 @@ webpackConfig.entry = {
 // Bundle Output
 // ------------------------------------
 webpackConfig.output = {
-  filename   : `[name].js`, // [${project.compiler_hash_type}]
+  filename   : `[name].[${project.compiler_hash_type}].js`,
   path       : project.paths.dist(),
   publicPath : project.compiler_public_path
 }
@@ -52,10 +56,10 @@ webpackConfig.externals['react/addons'] = true
 webpackConfig.plugins = [
   new webpack.DefinePlugin(project.globals),
   new HtmlWebpackPlugin({
-    template : project.paths.client('index.template.html'),
+    template : project.paths.client('index.html'),
     hash     : false,
     favicon  : project.paths.public('favicon.ico'),
-    filename : project.paths.base('../views/index.scala.html'),
+    filename : 'index.html',
     inject   : 'body',
     minify   : {
       collapseWhitespace : true
@@ -96,7 +100,8 @@ if (__DEV__) {
         dead_code : true,
         warnings  : false
       }
-    })
+    }),
+    new webpack.optimize.AggressiveMergingPlugin()
   )
 }
 
@@ -128,8 +133,8 @@ webpackConfig.module.loaders = [{
 // ------------------------------------
 // We use cssnano with the postcss loader, so we tell
 // css-loader not to duplicate minimization.
-const BASE_CSS_LOADER = 'css?modules&importLoaders=1&localIdentName=[name]_[local]_[hash:base64:5]'
 //const BASE_CSS_LOADER = 'css?sourceMap&-minimize'
+const BASE_CSS_LOADER = 'css?modules&importLoaders=1&localIdentName=[name]_[local]_[hash:base64:5]'
 
 webpackConfig.module.loaders.push({
   test    : /\.scss$/,
@@ -208,43 +213,6 @@ if (!__DEV__) {
       allChunks : true
     })
   )
-}
-
-webpackConfig.devServer = {
-  contentBase: project.paths.dist(),
-  hot: true,
-  inline: true,
-  proxy: [
-    {
-      context: ['/graphql', '/graphiql'], // proxy graphql queries, but don't rewrite url
-      target: 'http://localhost:9000/',
-      changeOrigin: true,
-      logLevel: 'warn'
-    },
-    {
-      context: [
-        '**',
-        '!**/*.js',
-        '!**/*.map',
-        '!**/*.txt',
-        '!**/*.xml'
-      ],
-      target: 'http://localhost:9000/',
-      changeOrigin: true,
-      pathRewrite: { '^/.*': '/' },
-      logLevel: 'warn'
-    }
-  ],
-  publicPath: '/',
-  stats: {
-    assets: false,
-    colors: true,
-    chunks: false,
-    chunkModules: false
-  },
-  quite: false,
-  noInfo: false,
-  clientLogLevel: 'warn'
 }
 
 module.exports = webpackConfig

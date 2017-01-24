@@ -1,7 +1,0 @@
-# Homepage
-GET         /                               controllers.Homepage.index
-
-# GraphQL
-GET         /graphql                        controllers.GraphQL.graphql(query: String, variables: Option[String], operation: Option[String])
-POST        /graphql                        controllers.GraphQL.graphqlBody
-GET         /graphiql                       controllers.GraphQL.graphiql

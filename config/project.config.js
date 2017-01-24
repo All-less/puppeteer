@@ -3,8 +3,6 @@ const path = require('path')
 const debug = require('debug')('app:config:project')
 const argv = require('yargs').argv
 const ip = require('ip')
-const relay = require('babel-relay-plugin')
-const schema = require('./schema.json').data
 
 debug('Creating default configuration.')
 // ========================================================
@@ -18,23 +16,24 @@ const config = {
   // ----------------------------------
   path_base  : path.resolve(__dirname, '..'),
   dir_client : 'src',
-  dir_dist   : '../../public',
-  dir_public : '../../public',
+  dir_dist   : 'dist',
+  dir_public : 'public',
+  dir_server : 'server',
   dir_test   : 'tests',
 
   // ----------------------------------
   // Server Configuration
   // ----------------------------------
-  server_host : 'localhost', //ip.address(), // use string 'localhost' to prevent exposure on local network
-  server_port : process.env.PORT || 8080,
-
+  server_host   : ip.address(), // use string 'localhost' to prevent exposure on local network
+  server_port   : process.env.PORT || 3000,
+  cookie_secret : 'CHANGE_ME',
   // ----------------------------------
   // Compiler Configuration
   // ----------------------------------
   compiler_babel : {
     cacheDirectory : true,
-    plugins        : [ 'babel-relay-plugin-loader', 'transform-runtime', 'transform-decorators-legacy'],
-    presets        : [ 'es2015', 'react', 'stage-0']
+    plugins        : ['transform-runtime'],
+    presets        : ['es2015', 'react', 'stage-0']
   },
   compiler_devtool         : 'source-map',
   compiler_hash_type       : 'hash',
@@ -88,6 +87,22 @@ config.globals = {
 }
 
 // ------------------------------------
+// Validate Vendor Dependencies
+// ------------------------------------
+const pkg = require('../package.json')
+
+config.compiler_vendors = config.compiler_vendors
+  .filter((dep) => {
+    if (pkg.dependencies[dep]) return true
+
+    debug(
+      `Package "${dep}" was not found as an npm dependency in package.json; ` +
+      `it won't be included in the webpack vendor bundle.
+       Consider removing it from \`compiler_vendors\` in ~/config/index.js`
+    )
+  })
+
+// ------------------------------------
 // Utilities
 // ------------------------------------
 function base () {
@@ -98,15 +113,15 @@ function base () {
 config.paths = {
   base   : base,
   client : base.bind(null, config.dir_client),
-  dist   : base.bind(null, config.dir_dist),
-  public : base.bind(null, config.dir_public)
+  public : base.bind(null, config.dir_public),
+  dist   : base.bind(null, config.dir_dist)
 }
 
 // ========================================================
 // Environment Configuration
 // ========================================================
 debug(`Looking for environment overrides for NODE_ENV "${config.env}".`)
-const environments = require('./environment.config')
+const environments = require('./environments.config')
 const overrides = environments[config.env]
 if (overrides) {
   debug('Found overrides, applying to default configuration.')
