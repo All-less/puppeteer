@@ -9,14 +9,12 @@ var schema = buildSchema(`
 `);
 
 // The root provides a resolver function for each API endpoint
-var root = {
-  hello: () => {
-    return 'Hello world!';
-  },
+const root = {
+  hello: () => 'Hello world!'
 };
 
-module.exports = graphqlHTTP({
+module.exports = (debug) => (graphqlHTTP({
   schema: schema,
   rootValue: root,
-  graphiql: true,
-})
+  graphiql: debug,
+}))

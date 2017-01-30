@@ -17,7 +17,7 @@ const app = express()
 app.use(logger(project.env === 'development' ? 'dev' : 'default'))
 
 // GraphQL server
-app.use('/graphql', graphql)
+app.use('/graphql', graphql(project.env === 'development'))
 
 // Apply gzip compression
 app.use(compress())

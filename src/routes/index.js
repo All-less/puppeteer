@@ -1,14 +1,11 @@
 import AppContainer from '../components/AppContainer'
 import HomeRoute from './Home'
-import CounterRoute from './Counter'
 
 export const createRoutes = (store) => ({
   path        : '/',
   component   : AppContainer,
   indexRoute  : HomeRoute(store),
-  childRoutes : [
-    CounterRoute(store)
-  ]
+  childRoutes : []
 })
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically
