@@ -17,8 +17,8 @@ const Header = () => {
         </span>
         <div className='mdl-layout-spacer' />
         <nav className='mdl-navigation'>
-          <a className='mdl-navigation__link' href='#'>登录</a>
-          <a className='mdl-navigation__link' href='#'>注册</a>
+          <a className='mdl-navigation__link' href="javascript:void(0)">登录</a>
+          <a className='mdl-navigation__link' href="javascript:void(0)">注册</a>
         </nav>
       </div>
     </header>

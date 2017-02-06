@@ -2,9 +2,8 @@ import React from 'react'
 import cn from 'classnames'
 
 import Sidebar from '../Sidebar'
-import BackendTable from '../BackendTable'
+import Dashboard from '../Dashboard'
 import Header from '../Header'
-
 import style from './style.scss'
 
 
@@ -19,11 +18,8 @@ class AdminLayout extends React.Component {
           <Sidebar />
         </div>
         <main className={cn("mdl-layout__content", "mdl-color--grey-100")}>
-          <BackendTable />
+          <Dashboard />
         </main>
-        <button className={cn(style.fab, "mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect")}>
-          <i className="material-icons">add</i>
-        </button>
       </div>
     )
   }

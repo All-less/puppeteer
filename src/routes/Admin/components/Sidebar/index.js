@@ -29,7 +29,7 @@ class Sidebar extends React.Component {
           </div>
         </header>
         <nav className={cn(style.navigation, "demo-navigation", "mdl-navigation", "mdl-color--blue-grey-800")}>
-          <a className={cn(style.navigationLink, "mdl-navigation__link")} href="">
+          <a className={cn(style.navigationLink, "mdl-navigation__link")} href="javascript:void(0)">
             <i className={cn(style.navigationIcon, "mdl-color-text--blue-grey-400", "material-icons")} role="presentation">home</i>
             Dashboard
           </a>
