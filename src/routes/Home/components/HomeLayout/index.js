@@ -1,7 +1,7 @@
 import React from 'react'
 import cn from 'classnames'
 
-import Header from '../../../../components/Header'
+import Header from '..//Header'
 import Editor from '../Editor'
 import StepMenu from '../StepMenu'
 

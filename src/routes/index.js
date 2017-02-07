@@ -1,11 +1,12 @@
 import AppContainer from '../components/AppContainer'
 import HomeRoute from './Home'
+import AdminRoute from './Admin'
 
 export const createRoutes = (store) => ({
   path        : '/',
   component   : AppContainer,
   indexRoute  : HomeRoute(store),
-  childRoutes : []
+  childRoutes : [AdminRoute(store)]
 })
 
 /*  Note: childRoutes can be chunked or otherwise loaded programmatically
