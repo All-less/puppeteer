@@ -1,8 +1,6 @@
 import React from 'react'
-import { browserHistory, Router, applyRouterMiddleware } from 'react-router'
+import { browserHistory, Router } from 'react-router'
 import { Provider } from 'react-redux'
-import Relay from 'react-relay'
-import useRelay from 'react-router-relay'
 
 
 class AppContainer extends React.Component {

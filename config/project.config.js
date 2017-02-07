@@ -58,7 +58,16 @@ const config = {
   coverage_reporters : [
     { type : 'text-summary' },
     { type : 'lcov', dir : 'coverage' }
-  ]
+  ],
+
+  // ----------------------------------
+  // Database Configuration
+  // ----------------------------------
+  database: {
+    host: 'localhost',
+    port: 27017,
+    db_name: 'puppeteer'
+  }
 }
 
 /************************************************

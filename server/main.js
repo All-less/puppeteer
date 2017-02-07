@@ -3,15 +3,22 @@ const debug = require('debug')('app:server')
 const path = require('path')
 const webpack = require('webpack')
 const compress = require('compression')
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-const logger = require('morgan');
+const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
+const logger = require('morgan')
+const mongoose = require('mongoose')
 
 const webpackConfig = require('../config/webpack.config')
 const project = require('../config/project.config')
-const graphql = require('./graphql')
+const graphql = require('./models/graphql')
 
 const app = express()
+
+// connect to Mongodb
+mongoose.Promise = require('bluebird')
+mongoose.connect(
+  `mongodb://${project.database.host}:${project.database.port}/${project.database.db_name}`
+)
 
 // print access log
 app.use(logger(project.env === 'development' ? 'dev' : 'default'))

@@ -1,10 +1,11 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import createStore from './store/createStore'
-import { browserHistory, Router, applyRouterMiddleware } from 'react-router'
+import { browserHistory, Router } from 'react-router'
 import { Provider } from 'react-redux'
-import Relay from 'react-relay'
-import useRelay from 'react-router-relay'
+import { ApolloProvider } from 'react-apollo'
+
+import createStore from './store/createStore'
+import client from './store/apollo'
 
 // ========================================================
 // Store Instantiation
@@ -21,10 +22,9 @@ let render = () => {
   const routes = require('./routes/index').default(store)
   const root = (
     <Provider store={store}>
-      <Router history={browserHistory}
-        children={routes}
-        render={applyRouterMiddleware(useRelay)}
-        environment={Relay.Store} />
+      <ApolloProvider client={client}>
+        <Router history={browserHistory} children={routes}/>
+      </ApolloProvider>
     </Provider>
   )
 

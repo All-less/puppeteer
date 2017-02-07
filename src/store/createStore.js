@@ -1,14 +1,17 @@
 import { applyMiddleware, compose, createStore } from 'redux'
 import thunk from 'redux-thunk'
 import { browserHistory } from 'react-router'
+
 import makeRootReducer from './reducers'
 import { updateLocation } from './location'
+import client from './apollo'
+
 
 export default (initialState = {}) => {
   // ======================================================
   // Middleware Configuration
   // ======================================================
-  const middleware = [thunk]
+  const middleware = [thunk, client.middleware()]
 
   // ======================================================
   // Store Enhancers
