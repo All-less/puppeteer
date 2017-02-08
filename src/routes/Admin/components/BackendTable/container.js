@@ -1,9 +1,12 @@
-import { graphql, compose } from 'react-apollo'
+import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
+import { compose } from 'redux'
+import { connect } from 'react-redux'
 
 import BackendTable from './component'
 
-const query = gql`
+
+const getBackendList = gql`
   query {
     backendList {
       name
@@ -14,6 +17,11 @@ const query = gql`
   }
 `
 
+const mapStateToProps = (state) => ({
+  addedBackends: state.backend.addedBackends
+})
+
 export default compose(
-  graphql(query)
+  graphql(getBackendList),
+  connect(mapStateToProps)
 )(BackendTable)

@@ -21,11 +21,9 @@ const MOUNT_NODE = document.getElementById('root')
 let render = () => {
   const routes = require('./routes/index').default(store)
   const root = (
-    <Provider store={store}>
-      <ApolloProvider client={client}>
-        <Router history={browserHistory} children={routes}/>
-      </ApolloProvider>
-    </Provider>
+    <ApolloProvider store={store} client={client}>
+      <Router history={browserHistory} children={routes}/>
+    </ApolloProvider>
   )
 
   ReactDOM.render(

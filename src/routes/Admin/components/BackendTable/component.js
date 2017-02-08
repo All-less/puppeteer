@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component, PropTypes } from 'react'
 import cn from 'classnames'
 import _ from 'lodash'
 
@@ -11,8 +11,17 @@ const mock = {
 }
 
 class BackendTable extends React.Component {
+
+  static propTypes = {
+    addedBackends: PropTypes.array.isRequired
+  }
+
   render() {
     const { loading, error } = this.props.data
+    const backends = _.compact(_.concat(
+      (!loading && !error) ? this.props.data.backendList : undefined,
+      this.props.addedBackends
+    ))
     return (
       <table className={cn("mdl-data-table mdl-js-data-table mdl-shadow--2dp")}>
         <thead>
@@ -29,7 +38,8 @@ class BackendTable extends React.Component {
         </thead>
         <tbody>
           { // TODO: add loading animation
-            !loading && !error && this.props.data.backendList.map((backend, i) => (
+            // TODO: add pagination
+            backends.map((backend, i) => (
               <tr key={i}>
                 <td className="mdl-data-table__cell--non-numeric">{backend.name}</td>
                 <td className="mdl-data-table__cell--non-numeric">{backend.status}</td>

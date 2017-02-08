@@ -14,7 +14,7 @@ var schema = buildSchema(`
     ${Backend.query}
   }
 
-  type Mutation{
+  type Mutation {
     ${Backend.mutation}
   }
 `);

@@ -1,4 +1,7 @@
 import AdminLayout from './components/AdminLayout'
+import { injectReducer } from '../../store/reducers'
+import backend from './modules/backend'
+import snackbar from './modules/snackbar'
 
 export default (store) => ({
   path : 'admin',
@@ -10,10 +13,10 @@ export default (store) => ({
       /*  Webpack - use require callback to define
           dependencies for bundling   */
       const AdminLayout = require('./components/AdminLayout').default
-      // const reducer = require('./modules/admin').default
 
-      /*  Add the reducer to the store on key 'counter'  */
-      // injectReducer(store, { key: 'admin', reducer })
+      /*  Add the reducer to the store on key 'backend'  */
+      injectReducer(store, { key: 'backend', reducer: backend })
+      injectReducer(store, { key: 'snackbar', reducer: snackbar })
 
       /*  Return getComponent   */
       cb(null, AdminLayout)

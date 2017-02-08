@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux'
+
 import locationReducer from './location'
 import client from './apollo'
 
