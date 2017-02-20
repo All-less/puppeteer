@@ -1,11 +1,6 @@
 import { createAction, handleActions } from 'redux-actions'
 import _ from 'lodash'
 
-import sourceIcon from '../components/StepMenu/assets/ic_source.png'
-import processIcon from '../components/StepMenu/assets/ic_process.png'
-import trainIcon from '../components/StepMenu/assets/ic_train.png'
-import evaluateIcon from '../components/StepMenu/assets/ic_evaluate.png'
-
 
 export const toggle = createAction('MENU/TOGGLE', (index) => index)
 export const updateMenu = createAction('MENU/UPDATE_MENU')
@@ -16,30 +11,22 @@ const initialState = {
     {
       name: '选择数据源',
       subitems: [],
-      expanded: false,
-      icon: sourceIcon,
-      color: '#7EBD53'
+      expanded: false
     },
     {
       name: '数据预处理',
       subitems: [],
-      expanded: false,
-      icon: processIcon,
-      color: '#54D0E0'
+      expanded: false
     },
     {
       name: '训练模型',
       subitems: [],
-      expanded: false,
-      icon: trainIcon,
-      color: '#82B1FF'
+      expanded: false
     },
     {
       name: '模型评估',
       subitems: [],
-      expanded: false,
-      icon: evaluateIcon,
-      color: '#4FC3F7'
+      expanded: false
     }
   ]
 }

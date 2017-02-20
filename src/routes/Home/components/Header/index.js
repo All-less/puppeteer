@@ -1,40 +1,11 @@
 import React, { Component, PropTypes } from 'react'
 import { IndexLink, Link } from 'react-router'
-import Popover from 'material-ui/Popover';
-import FlatButton from 'material-ui/FlatButton';
 import cn from 'classnames'
 
 import style from './style.scss'
-import ModelPopover from '../ModelPopover'
 
 
 class Header extends Component {
-
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      open: false
-    }
-    this.handleTouchTap = this.handleTouchTap.bind(this)
-    this.handleRequestClose = this.handleRequestClose.bind(this)
-  }
-
-  handleTouchTap(event) {
-    // This prevents ghost click.
-    event.preventDefault();
-
-    this.setState({
-      open: true,
-      anchorEl: event.currentTarget
-    })
-  }
-
-  handleRequestClose() {
-    this.setState({
-      open: false
-    })
-  }
 
   render() {
     return (

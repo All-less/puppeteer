@@ -1,10 +1,11 @@
 import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
-import { compose } from 'redux'
 import { connect } from 'react-redux'
+import { compose, withHandlers } from 'recompose'
 
 import { intercept } from '../../../../store/intercept'
-import { updateBackends, removeBackend } from '../../modules/backend'
+import { openPopover } from '../../modules/popover'
+import { updateBackends } from '../../modules/backend'
 import { showSnackbar } from '../../modules/snackbar'
 import BackendTable from './component'
 
@@ -21,18 +22,6 @@ const getBackendList = gql`
   }
 `
 
-const deleteBackend = gql`
-  mutation ($id: String!) {
-    deleteBackend(id: $id)
-  }
-`
-
-const refreshBackend = gql`
-  mutation ($id: String!) {
-    refreshBackend(id: $id)
-  }
-`
-
 // store graphql result to redux
 intercept(
   (data) => (data.backendList !== undefined),
@@ -44,13 +33,19 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  removeBackend,
+  openPopover,
   showSnackbar
+}
+
+const handlerMap = {
+  handleOperation: props => id => event => {
+    const { openPopover } = props
+    openPopover(event.target, id)
+  }
 }
 
 export default compose(
   graphql(getBackendList),
-  graphql(deleteBackend, { name: 'deleteBackend' }),
-  graphql(refreshBackend, { name: 'refreshBackend' }),
-  connect(mapStateToProps, mapDispatchToProps)
+  connect(mapStateToProps, mapDispatchToProps),
+  withHandlers(handlerMap)
 )(BackendTable)

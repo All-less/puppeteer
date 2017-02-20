@@ -14,6 +14,7 @@ const createBackend = gql`
       name: $name
       addr: $addr
     }) {
+      id
       name
       addr
       service

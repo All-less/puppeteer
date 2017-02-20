@@ -35,7 +35,7 @@ const createBackend = Promise.coroutine(function* (name, addr) {
         .then((steps) => {
           const desc = steps.map((step) => step.name).join('、 ')
           res.service = desc.length > 20 ? (desc.slice(20) + '...') : desc
-          // update value to return to graphql resolver
+          // update value for graphql resolver
           backend.id = res._id.toString()
           backend.service = res.service
           return res.save()
@@ -67,10 +67,17 @@ const initBackend = (id, addr) => {
     })
 }
 
+/**
+ * Refresh information related to the backend with specific id.
+ *
+ * @param  {String} id  the id of the backend
+ * @return {Promise}    it will resolve to the updated backend
+ */
 const refreshBackend = (id) => {
   let desc
-  grpcClient.sanityCheck(id)
+  return grpcClient.sanityCheck(id)
     .then(() => {
+      // clear all steps
       return StepModel.remove({ backend: id })
     })
     .then(() => {
@@ -88,44 +95,42 @@ const refreshBackend = (id) => {
       )
     })
     .then(() => {
-      return BackendModel.findOneAndUpdate(
-        { id }, {
-          service: desc.length > 20 ? (desc.slice(20) + '...') : desc,
-          status: '运行中'
-        }
-      )
+      return BackendModel.findById(id)
     })
     .then((doc) => {
-      return doc
+      doc.service = desc.length > 20 ? (desc.slice(20) + '...') : desc
+      doc.status = '运行中'
+      return doc.save()
     })
     .catch((err) => {
-      return BackendModel.findOneAndUpdate(
-       { id }, { status: '已停止' }
-      )
-      .then((doc) => {
-        return doc
-      })
+      return BackendModel.findById(id)
+        .then((doc) => {
+          doc.status = '已停止'
+          return doc.save()
+        })
     })
 }
 
 // GraphQL resolvers for backends
 const BackendResolver = {
   backendList: () => {
-    return BackendModel.find().then((backends) => {
-      return backends.map((backend) => {
-        backend.id = backend._id.toString()
-        return backend
+    return BackendModel.find()
+      .then((backends) => {
+        return backends.map((backend) => {
+          backend.id = backend._id.toString()
+          return backend
+        })
       })
-    })
   },
   createBackend: Promise.coroutine(function* ({ input }) {
     const { name, addr } = input
-    const backend = yield createBackend(name, addr)
-    return backend
+    return createBackend(name, addr)
   }),
   deleteBackend: Promise.coroutine(function* ({ id }) {
-    return BackendModel.findByIdAndRemove(id)
-      .then((doc) => (doc))
+    yield StepModel.remove({ backend: id })
+    const backend =  yield BackendModel.findById(id)
+    yield backend.remove()
+    return backend
   }),
   refreshBackend: Promise.coroutine(function* ({ id }) {
     return refreshBackend(id)

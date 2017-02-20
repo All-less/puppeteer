@@ -2,6 +2,8 @@ import AdminLayout from './components/AdminLayout'
 import { injectReducer } from '../../store/reducers'
 import backend from './modules/backend'
 import snackbar from './modules/snackbar'
+import popover from './modules/popover'
+
 
 export default (store) => ({
   path : 'admin',
@@ -17,6 +19,7 @@ export default (store) => ({
       /*  Add the reducer to the store on key 'backend'  */
       injectReducer(store, { key: 'backend', reducer: backend })
       injectReducer(store, { key: 'snackbar', reducer: snackbar })
+      injectReducer(store, { key: 'popover', reducer: popover })
 
       /*  Return getComponent   */
       cb(null, AdminLayout)
