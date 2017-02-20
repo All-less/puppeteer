@@ -5,13 +5,22 @@ const Promise = require('bluebird')
 const _ = require('lodash')
 
 const Backend = require('../models/backend')
+const Step = require('../models/step')
+
 
 // Construct a schema, using GraphQL schema language
 var schema = buildSchema(`
+
+  type JsonString {
+    content: String!
+  }
+
   ${Backend.type}
+  ${Step.type}
 
   type Query {
     ${Backend.query}
+    ${Step.query}
   }
 
   type Mutation {
@@ -20,9 +29,9 @@ var schema = buildSchema(`
 `);
 
 // The root provides a resolver function for each API endpoint
-
 const root = _.merge(
-  Backend.resolver
+  require('../services/backend').resolver,
+  require('../services/step').resolver
 );
 
 module.exports = (debug) => (graphqlHTTP({

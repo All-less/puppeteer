@@ -1,4 +1,5 @@
 @import '../../../../styles/colors.scss';
+@import '../../styles/palette.scss';
 
 .linkLayer {
     position: absolute;
@@ -10,7 +11,7 @@
     fill: none;
 
     .link {
-        stroke: $primary-color;
+        stroke: $outline-color;
         stroke-width: 2px;
         pointer-event: all;
     }

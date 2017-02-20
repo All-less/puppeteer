@@ -1,0 +1,113 @@
+syntax = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.lianpay.BigDataPuppet";
+option java_outer_classname = "PuppetProto";
+option objc_class_prefix = "PPT";
+
+package puppet;
+
+service Puppet {
+    // ensure the backend is alive
+    rpc SanityCheck (Empty) returns (Empty) {}
+
+    // get all supported steps
+    rpc GetSteps (Empty) returns (StepDefList) {}
+
+    // run a step specified by user
+    rpc RunStep (RunSpec) returns (stream StepRes) {}
+}
+
+message Empty {}
+
+// a list defining all provided steps
+message StepDefList {
+    repeated StepDef steps = 1;
+}
+
+// the phase that a step belongs to
+enum Phase {
+    SOURCE = 0; // get data source
+    PREPROCESS = 2; // preprocess data
+    TRAIN = 3; // train the model
+    EVALUATE = 4; // evaluate the model
+}
+
+// definition of a step
+message StepDef {
+    string name = 1;
+    Phase phase = 2;
+    // name -> type of the field and other metadata
+    map<string, FieldConf> config = 3;
+}
+
+enum FieldType {
+    TEXT = 0;
+    INTEGER = 1;
+    FLOAT = 2;
+    SELECT = 3;
+    BOOL = 4;
+}
+
+// configuration of a field
+message FieldConf {
+     FieldType type = 1;
+     // when type is 'select', a list of options will be included
+     repeated string options = 2;
+     // description of the field
+     string desc = 3;
+}
+
+message RunSpec {
+    // id of the step to run
+    uint32 id = 1;
+    // a model containing all steps
+    ModelSpec model = 2;
+}
+
+// specification of a step
+// StepSpec's form a DAG via 'prev' & 'next' fields
+message StepSpec {
+    // identifier of the step, which will be used in 'prev' and 'next'
+    uint32 id = 7;
+    // previous step
+    repeated int32 prev = 5;
+    // next step
+    repeated int32 next = 6;
+
+    // name of the step
+    string name = 1;
+    // phase that the step belongs to
+    Phase phase = 2;
+    // field name -> field value
+    map<string, string> config = 3;
+}
+
+// specification of a steps
+message ModelSpec {
+    // identifier of the model
+    uint32 id = 3;
+    // name of the model
+    string name = 1;
+    // step id -> step specification
+    map<uint32, StepSpec> steps = 2;
+}
+
+enum StepStatus {
+    PENDING = 0;
+    RUNNING = 2;
+    ERROR = 3;
+    FINISHED = 4;
+}
+
+// result of a step
+message StepRes {
+    // progress of the step, range: [0, 100]
+    int32 progress = 1;
+    // a boolean indicating whether there is an error
+    StepStatus statue = 2;
+    // error message / result message
+    string msg = 3;
+    // a boolean indicating whether the step is finished
+    bool fin = 4;
+}

@@ -10,7 +10,7 @@ class Port extends React.Component {
     nodeId: React.PropTypes.string.isRequired,
     name: React.PropTypes.string.isRequired,
     // only 'in' and 'out' are allowed
-    type: React.PropTypes.string.isRequired,
+    isInPort: React.PropTypes.bool.isRequired,
     color: React.PropTypes.string.isRequired,
     creatingLink: React.PropTypes.bool.isRequired,
     creatingLinkSrc: React.PropTypes.object,
@@ -29,12 +29,10 @@ class Port extends React.Component {
   }
 
   updatePortPos(element) {
-    const { name, type, nodeId, setPortPos } = this.props
+    const { name, type, nodeId, setPortPos, isInPort } = this.props
     const { top, bottom, left, right } = element.getBoundingClientRect()
     setPortPos(
-      nodeId,
-      type === 'in' ? 'inPorts' : 'outPorts',
-      name,
+      nodeId, isInPort, name,
       [(left + right) / 2, (top + bottom) / 2]
     )
   }
@@ -42,8 +40,8 @@ class Port extends React.Component {
   handleMouseUp(event) {
     event.preventDefault()
     event.stopPropagation()
-    const { createLink, creatingLinkSrc, nodeId, name, type, stopLink } = this.props
-    createLink(creatingLinkSrc, { id: nodeId, port: name, type})
+    const { createLink, creatingLinkSrc, nodeId, name, isInPort, stopLink } = this.props
+    createLink(creatingLinkSrc, { id: nodeId, port: name, type: isInPort ? 'in' : 'out'})
     stopLink()
   }
 
@@ -59,8 +57,7 @@ class Port extends React.Component {
   }
 
   render() {
-    const { type, name, nodeId, color, creatingLink } = this.props
-    const isInPort = (type === 'in')
+    const { type, name, nodeId, color, creatingLink, isInPort } = this.props
     return (
       <div
         className={isInPort ? style.inPort : style.outPort}
@@ -69,13 +66,7 @@ class Port extends React.Component {
         ref={(e) => { e && this.updatePortPos(e) }}>
         <div
           className={isInPort ? style.inPortSquare : style.outPortSquare}
-
         />
-        {/*
-        <div className={isInPort ? style.inPortName : style.outPortName}>
-          {name}
-        </div>
-        */}
       </div>
     )
   }

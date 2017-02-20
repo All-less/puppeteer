@@ -4,10 +4,12 @@ import _ from 'lodash'
 
 export const toggleModal = createAction('BACKEND/TOGGLE_MODAL')
 export const addBackend = createAction('BACKEND/ADD_BACKEND')
+export const updateBackends = createAction('BACKEND/UPDATE_BACKENDS')
+export const removeBackend = createAction('BACKEND/REMOVE_BACKEND', (id) => (id))
 
 const initialState = {
   showModal: false,
-  addedBackends: []
+  backends: []
 }
 
 const handlerMap = {
@@ -15,7 +17,13 @@ const handlerMap = {
     { ...state, showModal: (action.payload !== undefined ? action.payload : !state.showModal) }
   ),
   [addBackend]: (state, action) => (
-    { ...state, addedBackends: _.concat(state.addBackends, action.payload) }
+    { ...state, addedBackends: _.concat(state.backends, action.payload) }
+  ),
+  [updateBackends]: (state, action) => (
+    { ...state, backends: action.payload }
+  ),
+  [removeBackend]: (state, action) => (
+    { ...state, backends: _.filter(state.backends, (backend) => (backend.id !== action.payload)) }
   )
 }
 

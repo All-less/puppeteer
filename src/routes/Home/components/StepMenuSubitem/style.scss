@@ -1,0 +1,16 @@
+@import '../../styles/mixin.scss';
+@import '../../styles/palette.scss';
+
+.subitem {
+  @include item-base;
+
+  padding: 12px;
+  border-top: 1px solid $divider-color;
+
+  .text {
+    margin-left: 32px;
+    font-weight: 100;
+    color: $text-color;
+    font-size: 13px;
+  }
+}

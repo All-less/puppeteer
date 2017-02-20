@@ -1,9 +1,10 @@
 @import '../../../../styles/colors.scss';
+@import '../../styles/palette.scss';
 
 @mixin portSquare {
     width: 8px;
     height: 8px;
-    background: $primary-color;
+    background: $outline-color;
     border-radius: 4px;
     position: relative;
 

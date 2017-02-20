@@ -16,7 +16,7 @@ export const moveNode = createAction(
 )
 export const createNode = createAction(
   'NODES/CREATE_NODE',
-  (id, x, y, type, subtype, color) => ({ id, pos: [x, y], type, subtype, color })
+  (id, x, y, phase, step, config) => ({ id, pos: [x, y], phase, step, config })
 )
 export const updateNodePos = createAction(
   'NODES/UPDATE_NODE_POS',
@@ -32,7 +32,7 @@ const initialState = {
   <node id>: {
     pos: [<clientX>, <clientY>],
     type: <type>,
-    color: <color>,
+    config: <configuration map>
     inPorts: {
       <port name>: {
         computed: <whether pos is ready>,
@@ -68,14 +68,14 @@ const handlerMap = {
     return _.update(res, [nodeId, 'pos'], ([x, y]) => ([x + deltaX, y + deltaY]))
   },
   [createNode]: (state, action) => {
-    const { id, pos, type, color, subtype } = action.payload
+    const { id, pos, phase, step, config } = action.payload
     return _.assign(
       {
         [id]: {
-          type,
+          phase,
           pos,
-          color,
-          subtype,
+          step,
+          config,
           inPorts: { in: { computed: false, pos: [0, 0] } },
           outPorts: { out: { computed: false, pos: [0, 0] } }
         }

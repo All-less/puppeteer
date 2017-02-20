@@ -8,40 +8,47 @@ import evaluateIcon from '../components/StepMenu/assets/ic_evaluate.png'
 
 
 export const toggle = createAction('MENU/TOGGLE', (index) => index)
+export const updateMenu = createAction('MENU/UPDATE_MENU')
 
-// The following state is just an example.
 // Actual menu contents will be fetched from server.
 const initialState = {
   items: [
     {
       name: '选择数据源',
-      subitems: ['Hive 查询结果', 'HDFS 文件', '本地文件'],
+      subitems: [],
       expanded: false,
       icon: sourceIcon,
       color: '#7EBD53'
     },
     {
       name: '数据预处理',
-      subitems: ['编辑元数据', '清理数据', '数据转换', '组合列', '采样', '选择列', '去重', '连接'],
+      subitems: [],
       expanded: false,
       icon: processIcon,
       color: '#54D0E0'
     },
     {
       name: '训练模型',
-      subitems: ['逻辑回归', '深度神经网络', 'Kmeans聚类', '梯度提升决策树', 'DBSCAN聚类', '支持向量机'],
+      subitems: [],
       expanded: false,
       icon: trainIcon,
       color: '#82B1FF'
     },
     {
       name: '模型评估',
-      subitems: ['ROC 曲线', 'F1 值', '交叉验证'],
+      subitems: [],
       expanded: false,
       icon: evaluateIcon,
       color: '#4FC3F7'
     }
   ]
+}
+
+const phaseIndices = {
+  'SOURCE': 0,
+  'PREPROCESS': 1,
+  'TRAIN': 2,
+  'EVALUATE': 3
 }
 
 const handlerMap = {
@@ -53,6 +60,17 @@ const handlerMap = {
           : _.update(item, 'expanded', (value) => (!value))
       ))
     }
+  },
+  [updateMenu]: (state, action) => {
+    const res =  { items: state.items }
+    action.payload.map((step) => {
+      _.update(
+        res,
+        ['items', phaseIndices[step.phase], 'subitems'],
+        (subitems) => (_.concat(subitems, step))
+      )
+    })
+    return res
   }
 }
 

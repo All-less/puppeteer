@@ -10,15 +10,16 @@ const mongoose = require('mongoose')
 
 const webpackConfig = require('../config/webpack.config')
 const project = require('../config/project.config')
-const graphql = require('./models/graphql')
-
-const app = express()
 
 // connect to Mongodb
 mongoose.Promise = require('bluebird')
 mongoose.connect(
   `mongodb://${project.database.host}:${project.database.port}/${project.database.db_name}`
 )
+
+const graphql = require('./models/graphql')
+
+const app = express()
 
 // print access log
 app.use(logger(project.env === 'development' ? 'dev' : 'default'))

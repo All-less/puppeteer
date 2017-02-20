@@ -7,6 +7,9 @@ import { ApolloProvider } from 'react-apollo'
 import createStore from './store/createStore'
 import client from './store/apollo'
 
+import injectTapEventPlugin from 'react-tap-event-plugin';
+injectTapEventPlugin();
+
 // ========================================================
 // Store Instantiation
 // ========================================================

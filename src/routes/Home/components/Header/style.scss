@@ -1,4 +1,12 @@
+@import '../../styles/palette.scss';
+
+.wrapper {
+  background-color: white;
+  border-bottom: 1px solid $divider-color;
+  box-shadow: none;
+}
+
 .title {
-  color: white;
+  color: $accent-text-color;
   text-decoration: none;
 }

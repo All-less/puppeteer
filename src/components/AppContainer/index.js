@@ -2,6 +2,8 @@ import React from 'react'
 import { browserHistory, Router } from 'react-router'
 import { Provider } from 'react-redux'
 
+import '../../styles/core.scss'
+
 
 class AppContainer extends React.Component {
   static propTypes = {

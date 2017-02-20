@@ -5,13 +5,14 @@ import { browserHistory } from 'react-router'
 import makeRootReducer from './reducers'
 import { updateLocation } from './location'
 import client from './apollo'
+import intercept from './intercept'
 
 
 export default (initialState = {}) => {
   // ======================================================
   // Middleware Configuration
   // ======================================================
-  const middleware = [thunk, client.middleware()]
+  const middleware = [thunk, client.middleware(), intercept]
 
   // ======================================================
   // Store Enhancers

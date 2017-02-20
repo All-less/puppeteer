@@ -12,10 +12,10 @@ const createBackend = gql`
   mutation ($name: String!, $addr: String!) {
     createBackend(input: {
       name: $name
-      remote: $addr
+      addr: $addr
     }) {
       name
-      remote
+      addr
       service
       status
     }

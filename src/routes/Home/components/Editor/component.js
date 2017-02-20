@@ -70,7 +70,7 @@ class Editor extends React.Component {
 
     return (
       <div
-        style={{ height: '100%' }}
+        style={{ height: '100%', boxShadow: 'inset 0 0 10px rgba(0, 0, 0, 0.1)' }}
         ref={(e) => { e && this.setRelativeOrigin(e) }}
         onMouseMove={this.handleMouseMove}
         onMouseUp={this.handleMouseUp}>
