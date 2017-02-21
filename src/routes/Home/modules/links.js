@@ -28,7 +28,7 @@ const handlerMap = {
   },
   [removeNodeLinks]: (state, action) => {
     const id = action.payload
-    return _.omitBy(state, (link) => (link.src.id !== id && link.dst.id !== id))
+    return _.omitBy(state, (link) => (link.src.id === id || link.dst.id === id))
   }
 }
 

@@ -19,7 +19,7 @@
     pointer-events: all;
 
     &.selected {
-        border-color: rgb(0,192,255);
+        border-color: $hover-background;// rgb(0,192,255);
         box-shadow: 0 0 10px rgba(0,192,255,0.5);
     }
 

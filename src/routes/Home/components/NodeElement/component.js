@@ -56,10 +56,10 @@ class NodeElement extends React.Component {
         </div>
         <div className={style.ports}>
           <div className={style.inPorts}>
-            <Port isInPort={true} name={"name"} nodeId={nodeId} pos={pos}/>
+            <Port isInPort={true} name={'in'} nodeId={nodeId} pos={pos}/>
           </div>
           <div className={style.outPorts}>
-            <Port isInPort={false} name={"name"} nodeId={nodeId} pos={pos}/>
+            <Port isInPort={false} name={'out'} nodeId={nodeId} pos={pos}/>
           </div>
         </div>
           {

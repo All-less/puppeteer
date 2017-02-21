@@ -32,7 +32,7 @@ class Port extends React.Component {
     const { name, type, nodeId, setPortPos, isInPort } = this.props
     const { top, bottom, left, right } = element.getBoundingClientRect()
     setPortPos(
-      nodeId, isInPort, name,
+      nodeId, isInPort ? 'inPorts' : 'outPorts', name,
       [(left + right) / 2, (top + bottom) / 2]
     )
   }
@@ -41,19 +41,19 @@ class Port extends React.Component {
     event.preventDefault()
     event.stopPropagation()
     const { createLink, creatingLinkSrc, nodeId, name, isInPort, stopLink } = this.props
-    createLink(creatingLinkSrc, { id: nodeId, port: name, type: isInPort ? 'in' : 'out'})
+    createLink(creatingLinkSrc, { id: nodeId, port: name, type: (isInPort ? 'in' : 'out')})
     stopLink()
   }
 
   handleMouseDown(event) {
     event.preventDefault()
     event.stopPropagation()
-    const { creatingLink, startLink, nodeId, name, type, color } = this.props
+    const { creatingLink, startLink, nodeId, name, isInPort, color } = this.props
     invariant(
       !creatingLink,
       'state.editor.creatingLink should be false when attempting to start link'
     )
-    startLink(nodeId, name, type, event.clientX, event.clientY)
+    startLink(nodeId, name, (isInPort ? 'in' : 'out') , event.clientX, event.clientY)
   }
 
   render() {

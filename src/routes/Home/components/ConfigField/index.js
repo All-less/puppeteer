@@ -13,7 +13,10 @@ const textStyle = {
   borderRadius: 4,
   margin: 8,
   height: 32,
-  padding: 4
+  padding: 4,
+  fontWeight: 100,
+  fontSize: 14,
+  color: palette.textColor,
 }
 
 const selectStyle = {
@@ -26,7 +29,7 @@ const selectStyle = {
     marginLeft: 16,
     fontWeight: 100,
     fontSize: 14,
-    color: '#616668',
+    color: palette.textColor,
     marginTop: -8 // We set height to 32px, but the label and
                   // icon won't be vertically center. So we need to
                   // lift it up. So if for iconStyle.marginTop = -8
