@@ -7,6 +7,7 @@ import TextField from 'material-ui/TextField'
 import style from './style.scss'
 import palette from '../../styles/palette'
 
+
 const styleProps = {
   select: {
     style: {
@@ -14,7 +15,7 @@ const styleProps = {
       marginLeft: 16
     },
     menuStyle: {
-      backgroundColor: '#F9FAFC',
+      backgroundColor: palette.secondaryBackgroundColor,
       borderRadius: 8,
       boxShadow: 'none',
       padding: 0,
@@ -23,29 +24,29 @@ const styleProps = {
       marginLeft: '16px',
       fontWeight: 100,
       fontSize: 14,
-      color: '#616668'
+      color: palette.textColor
     },
     iconStyle: {
-      backgroundColor: '#F9FAFC',
-      fill: '#A8AEB9',
+      backgroundColor: palette.secondaryBackgroundColor,
+      fill: palette.accentBackgroundColor,
       borderRadius: 8
     },
     menuItemStyle: {
-      backgroundColor: '#F9FAFC',
+      backgroundColor: palette.secondaryBackgroundColor,
       fontWeight: 100,
-      color: '#616668',
+      color: palette.textColor,
       fontSize: 14,
       height: 32
     },
     listStyle: {
-      backgroundColor: '#F9FAFC',
+      backgroundColor: palette.secondaryBackgroundColor,
       borderRadius: 8,
       padding: 0,
       margin: 0
     },
     selectedMenuItemStyle: {
       fontWeight: 100,
-      color: '#2196F3',
+      color: palette.accentTextColor,
       fontSize: 14
     }
   },
@@ -53,11 +54,11 @@ const styleProps = {
     lineHeight: 'inherit',
     height: 'inherit',
     width: 'initial',
-    color: '#2196F3'
+    color: palette.accentTextColor
   },
   text: {
     width: 'calc(90%)',
-    backgroundColor: '#F9FAFC',
+    backgroundColor: palette.secondaryBackgroundColor,
     borderRadius: 8,
     marginLeft: 16,
     padding: 8
@@ -75,7 +76,7 @@ class StatusPanel extends Component {
           </div>
           <SelectField
             className={style.modelSelect} value={1} onChange={undefined}
-            autoWidth={false} fullWidth={false} underlineShow={false}
+            autoWidth={true} fullWidth={false} underlineShow={false}
             {...styleProps.select}
             >
             <MenuItem value={1} primaryText="随机森林" />

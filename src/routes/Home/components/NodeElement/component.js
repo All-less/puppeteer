@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Component } from 'react'
 import cn from 'classnames'
 import Popover from 'material-ui/Popover'
 import TextField from 'material-ui/TextField'
@@ -8,6 +8,7 @@ import Toggle from 'material-ui/Toggle'
 import FontIcon from 'material-ui/FontIcon';
 
 import Port from '../Port'
+import ConfigField from '../ConfigField'
 import style from './style.scss'
 
 
@@ -63,42 +64,9 @@ class NodeElement extends React.Component {
         </div>
           {
             _.toPairs(config).map(([key, value]) => {
-              switch (value.type) {
-                case 'TEXT':
-                case 'INTEGER':
-                  return (
-                    <div>
-                      <span className={style.label}>{key}</span>
-                      <TextField
-                        id={key}
-                        underlineShow={false}
-                        style={{
-                          width: 150,
-                          backgroundColor: 'white',
-                          borderRadius: 4,
-                          margin: 8,
-                          height: 32,
-                          padding: 4
-                        }}
-                        />
-                    </div>
-                  )
-                case 'SELECT':
-                  return (
-                    <div>
-                      <SelectField value={1}>
-                        <MenuItem value={1} primaryText="Disabled" />
-                        <MenuItem value={2} primaryText="Every Night" />
-                      </SelectField>
-                    </div>
-                  )
-                case 'BOOL':
-                  return (
-                    <div>
-                      <Toggle label={key} />
-                    </div>
-                  )
-              }
+              return (
+                <ConfigField name={key} key={key} args={value} />
+              )
             })
           }
       </div>
