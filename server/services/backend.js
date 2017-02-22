@@ -4,22 +4,28 @@ const BackendModel = require('../models/backend').model
 const StepModel = require('../models/step').model
 const grpcClient = require('../grpc')
 
-// initialize information about all backends
-Promise.coroutine(function* () {
-  yield StepModel.remove()
-  const backends = yield BackendModel.find()
-  backends.forEach((backend) => {
-    initBackend(backend._id.toString(), backend.addr)
-      .then(() => {
-        backend.status = '运行中'
-        return backend.save()
-      })
-      .catch((err) => {
-        backend.status = '已停止'
-        backend.save()
-      })
-  })
-})()
+const initBackend = (id, addr) => {
+  // initilize a new client for each backend
+  grpcClient.newClient(id, addr)
+  // check whether they are alive
+  return grpcClient.sanityCheck(id)
+    // TODO: maybe we need a version number to determine whether to update service description
+    .then((res) => {
+      // get supported steps
+      return grpcClient.getSteps(id)
+    })
+    .then(({ steps }) => {
+      // store all steps
+      return StepModel.create(
+        steps.map((step) => ({
+          backend: id,
+          name: step.name,
+          config: JSON.stringify(step.config),
+          phase: step.phase
+        }))
+      )
+    })
+}
 
 const createBackend = Promise.coroutine(function* (name, addr) {
   const backend = {
@@ -43,29 +49,6 @@ const createBackend = Promise.coroutine(function* (name, addr) {
     })
   return backend
 })
-
-const initBackend = (id, addr) => {
-  // initilize a new client for each backend
-  grpcClient.newClient(id, addr)
-  // check whether they are alive
-  return grpcClient.sanityCheck(id)
-    // TODO: maybe we need a version number to determine whether to update service description
-    .then((res) => {
-      // get supported steps
-      return grpcClient.getSteps(id)
-    })
-    .then(({ steps }) => {
-      // store all steps
-      return StepModel.create(
-        steps.map((step) => ({
-          backend: id,
-          name: step.name,
-          config: JSON.stringify(step.config),
-          phase: step.phase
-        }))
-      )
-    })
-}
 
 /**
  * Refresh information related to the backend with specific id.
@@ -136,6 +119,23 @@ const BackendResolver = {
     return refreshBackend(id)
   })
 }
+
+// initialize information about all backends
+Promise.coroutine(function* () {
+  yield StepModel.remove()
+  const backends = yield BackendModel.find()
+  backends.forEach((backend) => {
+    initBackend(backend._id.toString(), backend.addr)
+      .then(() => {
+        backend.status = '运行中'
+        return backend.save()
+      })
+      .catch((err) => {
+        backend.status = '已停止'
+        return backend.save()
+      })
+  })
+})()
 
 module.exports = {
   createBackend,

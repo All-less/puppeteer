@@ -18,7 +18,7 @@ const styleProps = {
       backgroundColor: palette.secondaryBackgroundColor,
       borderRadius: 8,
       boxShadow: 'none',
-      padding: 0,
+      padding: 0
     },
     labelStyle: {
       marginLeft: '16px',
@@ -76,9 +76,9 @@ class StatusPanel extends Component {
           </div>
           <SelectField
             className={style.modelSelect} value={1} onChange={undefined}
-            autoWidth={true} fullWidth={false} underlineShow={false}
+            autoWidth fullWidth={false} underlineShow={false}
             {...styleProps.select}
-            >
+          >
             <MenuItem value={1} primaryText="随机森林" />
             <MenuItem value={2} primaryText="神经网络" />
           </SelectField>
@@ -87,27 +87,27 @@ class StatusPanel extends Component {
           <div className={style.nameHeader}>
             <span className={style.nameTitle}>修改名称</span>
             <FlatButton
-              className={style.nameButton} label="保存" primary={true}
+              className={style.nameButton} label="保存" primary
               style={styleProps.button}
-              />
+            />
           </div>
           <TextField
             id="name_field" underlineShow={false}
             style={styleProps.text}
-            />
+          />
         </div>
         <div className={style.exec}>
           <div className={style.execHeader}>
             <span className={style.execTitle}>训练模型</span>
             <FlatButton
-              className={style.execButton} label="运行" primary={true}
+              className={style.execButton} label="运行" primary
               style={styleProps.button}
-              />
+            />
           </div>
           <TextField
             id="exec_field" underlineShow={false}
             style={styleProps.text}
-            />
+          />
         </div>
       </div>
     )

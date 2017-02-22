@@ -11,7 +11,7 @@ import BackendTable from './component'
 
 
 const getBackendList = gql`
-  query {
+  query BackendList {
     backendList {
       id
       name
@@ -22,11 +22,18 @@ const getBackendList = gql`
   }
 `
 
-// store graphql result to redux
-intercept(
-  (data) => (data.backendList !== undefined),
-  (store, data) => store.dispatch(updateBackends(data.backendList))
-)
+const getBackendListOptions = {
+  options: ({ updateBackends }) => ({
+    reducer: (prev, action, variables) => {
+      const { type, result } = action
+      if (type === 'APOLLO_QUERY_RESULT' && result.data.backendList) {
+        // note that here is reducer, so we cannot dispatch action directly
+        setTimeout(() => { updateBackends(result.data.backendList) }, 0)
+      }
+      return prev
+    }
+  })
+}
 
 const mapStateToProps = (state) => ({
   backends: state.backend.backends
@@ -34,7 +41,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   openPopover,
-  showSnackbar
+  showSnackbar,
+  updateBackends
 }
 
 const handlerMap = {
@@ -45,7 +53,7 @@ const handlerMap = {
 }
 
 export default compose(
-  graphql(getBackendList),
   connect(mapStateToProps, mapDispatchToProps),
+  graphql(getBackendList, getBackendListOptions),
   withHandlers(handlerMap)
 )(BackendTable)

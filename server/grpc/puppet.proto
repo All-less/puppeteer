@@ -83,7 +83,7 @@ message StepSpec {
     map<string, string> config = 3;
 }
 
-// specification of a steps
+// specification of a model
 message ModelSpec {
     // identifier of the model
     uint32 id = 3;

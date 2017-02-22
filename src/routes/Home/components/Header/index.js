@@ -3,6 +3,7 @@ import { IndexLink, Link } from 'react-router'
 import cn from 'classnames'
 
 import style from './style.scss'
+import palette from '../../styles/palette'
 
 
 class Header extends Component {
@@ -20,8 +21,16 @@ class Header extends Component {
           </span>
           <div className='mdl-layout-spacer' />
           <nav className='mdl-navigation'>
-            <a className='mdl-navigation__link' href="javascript:void(0)">登录</a>
-            <a className='mdl-navigation__link' href="javascript:void(0)">注册</a>
+            <a className='mdl-navigation__link' style={{ color: palette.accentTextColor }}
+              href="javascript:void(0)"
+            >
+              登录
+            </a>
+            <a className='mdl-navigation__link' style={{ color: palette.accentTextColor }}
+              href="javascript:void(0)"
+            >
+              注册
+            </a>
           </nav>
         </div>
       </header>

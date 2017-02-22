@@ -1,15 +1,13 @@
 const graphqlHTTP = require('express-graphql')
 const { buildSchema } = require('graphql')
-const mongoose = require('mongoose')
-const Promise = require('bluebird')
 const _ = require('lodash')
 
 const Backend = require('../models/backend')
 const Step = require('../models/step')
-
+const Model = require('../models/model')
 
 // Construct a schema, using GraphQL schema language
-var schema = buildSchema(`
+const schema = buildSchema(`
 
   type JsonString {
     content: String!
@@ -17,25 +15,29 @@ var schema = buildSchema(`
 
   ${Backend.type}
   ${Step.type}
+  ${Model.type}
 
   type Query {
     ${Backend.query}
     ${Step.query}
+    ${Model.query}
   }
 
   type Mutation {
     ${Backend.mutation}
+    ${Model.mutation}
   }
-`);
+`)
 
 // The root provides a resolver function for each API endpoint
 const root = _.merge(
   require('../services/backend').resolver,
-  require('../services/step').resolver
-);
+  require('../services/step').resolver,
+  require('../services/model').resolver
+)
 
-module.exports = (debug) => (graphqlHTTP({
-  schema: schema,
+module.exports = debug => (graphqlHTTP({
+  schema,
   rootValue: root,
-  graphiql: debug,
+  graphiql: debug
 }))

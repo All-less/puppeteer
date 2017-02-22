@@ -76,7 +76,6 @@
   "author": "David Zukowski <david@zuko.me> (http://zuko.me)",
   "license": "MIT",
   "dependencies": {
-    "@material/textfield": "^0.2.1",
     "apollo-client": "^0.8.2",
     "async": "^2.1.4",
     "babel-core": "^6.17.0",
@@ -91,6 +90,7 @@
     "babel-preset-stage-0": "^6.3.13",
     "babel-runtime": "^6.11.6",
     "better-npm-run": "0.0.13",
+    "bluebird": "^3.4.7",
     "body-parser": "^1.16.0",
     "chai": "^3.4.1",
     "chai-as-promised": "^6.0.0",
@@ -99,6 +99,7 @@
     "classnames": "^2.2.5",
     "codecov": "^1.0.1",
     "compression": "^1.6.2",
+    "connect-mongo": "^1.3.2",
     "cookie-parser": "^1.4.3",
     "css-loader": "^0.26.0",
     "cssnano": "^3.7.4",
@@ -114,6 +115,7 @@
     "eslint-plugin-standard": "^2.0.0",
     "express": "^4.14.0",
     "express-graphql": "^0.6.1",
+    "express-session": "^1.15.1",
     "extract-text-webpack-plugin": "^1.0.0",
     "file-loader": "^0.9.0",
     "fs-extra": "^1.0.0",
@@ -160,9 +162,9 @@
     "rx-dom": "^7.0.3",
     "rxjs": "^5.0.3",
     "sass-loader": "^4.0.0",
-    "shortid": "^2.2.6",
     "sinon": "^1.17.5",
     "sinon-chai": "^2.8.0",
+    "socket.io": "^1.7.3",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.6",
     "velocity-react": "^1.2.0",
@@ -172,5 +174,12 @@
     "webpack-hot-middleware": "^2.12.2",
     "whatwg-fetch": "^2.0.2",
     "yargs": "^6.3.0"
+  },
+  "devDependencies": {
+    "eslint": "^3.16.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.0"
   }
 }

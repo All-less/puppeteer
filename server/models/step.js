@@ -3,10 +3,10 @@ const Schema = mongoose.Schema
 
 
 const StepSchema = new Schema({
-  backend: { type: Schema.Types.ObjectId, ref: 'Backend'},
+  backend: { type: Schema.Types.ObjectId, ref: 'Backend' },
   name: String,
   phase: String,
-  config: [{ name: String, type: String }]
+  config: String
 })
 const StepModel = mongoose.model('Step', StepSchema)
 

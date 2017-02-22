@@ -9,3 +9,20 @@
     box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.1);
   }
 }
+
+@mixin sectionTitle {
+    color: $text-color;
+    font-weight: 100;
+    font-size: 14px;
+}
+
+@mixin sectionButton {
+    float: right;
+}
+
+@mixin sectionHeader {
+    margin-top: 16px;
+    margin-bottom: 8px;
+    margin-left: 16px;
+    margin-right: 8px;
+}

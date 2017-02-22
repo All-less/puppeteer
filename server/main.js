@@ -17,25 +17,30 @@ mongoose.connect(
   `mongodb://${project.database.host}:${project.database.port}/${project.database.db_name}`
 )
 
-const graphql = require('./models/graphql')
-
 const app = express()
 
 // print access log
 app.use(logger(project.env === 'development' ? 'dev' : 'default'))
 
-// GraphQL server
-app.use('/graphql', graphql(project.env === 'development'))
+// session
+const session =  require('express-session')
+const MongoStore = require('connect-mongo')(session)
+app.use(session({
+  secret: project.cookie_secret,
+  resave: false,
+  saveUninitialized: false,
+  store: new MongoStore({ mongooseConnection: mongoose.connection })
+}))
 
 // Apply gzip compression
 app.use(compress())
 
 // automatically parse request body
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // automatically parse cookie content
-app.use(cookieParser(project.cookie_secret));
+app.use(cookieParser(project.cookie_secret))
 
 // ------------------------------------
 // Apply Webpack HMR Middleware
@@ -91,5 +96,13 @@ if (project.env === 'development') {
   // server in production.
   app.use(express.static(project.paths.dist()))
 }
+
+// GraphQL server
+const graphql = require('./models/graphql')
+app.use('/graphql', graphql(project.env === 'development'))
+
+// socket.io server
+// const apply = require('./websocket').default
+// apply(app)
 
 module.exports = app

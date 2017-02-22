@@ -20,11 +20,17 @@ const getStepList = gql`
   }
 `
 
-// update fetched data in menu
-intercept(
-  (data) => (data.stepList !== undefined),
-  (store, data) => store.dispatch(updateMenu(data.stepList))
-)
+const getStepListOptions = {
+  options: ({ updateMenu }) => ({
+    reducer: (prev, action, variables) => {
+      const { type, result } = action
+      if (type === 'APOLLO_QUERY_RESULT' && result.data.stepList) {
+        setTimeout(() => { updateMenu(result.data.stepList) }, 0)
+      }
+      return prev
+    }
+  })
+}
 
 const mapStateToProps = (state) => ({
   items: state.menu.items,
@@ -35,7 +41,8 @@ const mapDispatchToProps = {
   createNode,
   updateNodePos,
   setCreating,
-  removeNode
+  removeNode,
+  updateMenu
 }
 
 const handlerMap = {
@@ -58,6 +65,6 @@ const handlerMap = {
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
-  graphql(getStepList),
+  graphql(getStepList, getStepListOptions),
   withHandlers(handlerMap)
 )(StepMenu)

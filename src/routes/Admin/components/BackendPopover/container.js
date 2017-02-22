@@ -8,6 +8,7 @@ import { closePopover } from '../../modules/popover'
 import { showSnackbar } from '../../modules/snackbar'
 import { updateBackend, removeBackend } from '../../modules/backend'
 
+
 const mapStateToProps = (state) => ({
   open: state.popover.open,
   anchor: state.popover.anchor,
