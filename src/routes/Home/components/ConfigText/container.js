@@ -1,3 +1,12 @@
+import { compose, withHandlers } from 'recompose'
+import { connect } from 'react-redux'
+
 import ConfigText from './component'
 
-export default ConfigText
+
+const handlerMap = {
+}
+
+export default compose(
+  withHandlers(handlerMap)
+)(ConfigText)

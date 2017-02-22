@@ -26,6 +26,10 @@ export const removeNode = createAction(
   'NODES/REMOVE_NODE',
   (nodeId) => nodeId
 )
+export const updateValue = createAction(
+  'NODES/UPDATE_VALUE',
+  (path, value) => ({ path, value })
+)
 
 const initialState = {
   /*
@@ -92,6 +96,12 @@ const handlerMap = {
   [removeNode]: (state, action) => {
     const res = _.assign({}, state)
     _.unset(res, action.payload)
+    return res
+  },
+  [updateValue]: (state, action) => {
+    const { path, value } = action.payload
+    const res = _.assign({}, state)
+    _.set(res, path, value)
     return res
   }
 }

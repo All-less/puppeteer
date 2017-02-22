@@ -14,16 +14,19 @@ const textStyle = {
   padding: 4,
   fontWeight: 100,
   fontSize: 14,
-  color: palette.textColor,
+  color: palette.textColor
 }
 
 class ConfigText extends Component {
   render() {
-    const { name, args } = this.props
+    const { name, args, handleChange } = this.props
     return (
       <div className={style.wrapper}>
         <span className={style.configLabel}>{name}</span>
-        <TextField id={name} underlineShow={false} style={textStyle} />
+        <TextField
+          id={name} underlineShow={false}
+          style={textStyle} onChange={handleChange}
+        />
       </div>
     )
   }

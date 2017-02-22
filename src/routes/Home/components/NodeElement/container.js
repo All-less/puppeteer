@@ -2,7 +2,9 @@ import { connect } from 'react-redux'
 import { compose, withHandlers } from 'recompose'
 
 import NodeElement from './component'
-import { setPortPos, resetPortPos, removeNode } from '../../modules/nodes'
+import {
+  setPortPos, resetPortPos, removeNode, updateValue
+} from '../../modules/nodes'
 import { setSelected, updateDeltaPos } from '../../modules/editor'
 import { removeNodeLinks } from '../../modules/links'
 
@@ -18,7 +20,8 @@ const mapDispatchToProps = {
   setSelected,
   updateDeltaPos,
   removeNode,
-  removeNodeLinks
+  removeNodeLinks,
+  updateValue
 }
 
 const handlerMap = {
@@ -31,6 +34,14 @@ const handlerMap = {
     const { nodeId, setSelected, pos, updateDeltaPos } = props
     setSelected(nodeId)
     updateDeltaPos(event.clientX - pos[0], event.clientY - pos[1])
+  },
+  handleTextChange: props => name => (event, newValue) => {
+    const { nodeId, updateValue } = props
+    updateValue([nodeId, 'config', name, 'value'], newValue)
+  },
+  handleSelectChange: props => name => (event, key, payload) => {
+    const { nodeId, updateValue } = props
+    updateValue([nodeId, 'config', name, 'value'], payload)
   }
 }
 

@@ -46,12 +46,12 @@ const selectStyle = {
 
 class ConfigSelect extends Component {
   render() {
-    const { name, args } = this.props
+    const { name, args, handleChange } = this.props
     return (
       <div className={style.wrapper}>
         <span className={style.configLabel}>{name}</span>
         <SelectField
-          value={1} autoWidth fullWidth={false}
+          value={1} autoWidth fullWidth={false} onChange={handleChange}
           underlineShow={false} {...selectStyle}
           >
           {

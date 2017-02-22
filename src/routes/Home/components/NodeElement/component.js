@@ -41,7 +41,8 @@ class NodeElement extends React.Component {
     const {
       nodeId, pos, phase, step, inPorts, outPorts,
       selected, editorOrigin, selectedNodeId, config,
-      handleClose, handleMouseDown
+      handleClose, handleMouseDown, handleTextChange,
+      handleSelectChange
     } = this.props
     const nodeClass = cn(style.node, {[style.selected]: selectedNodeId === nodeId})
     const nodeStyle = {left: pos[0] - editorOrigin[0], top: pos[1] - editorOrigin[1]}
@@ -66,9 +67,19 @@ class NodeElement extends React.Component {
           {
             _.toPairs(config).map(([key, value]) => {
               if (['TEXT', 'INTEGER', 'FLOAT'].includes(value.type)) {
-                return (<ConfigText name={key} key={key} args={value} />)
+                return (
+                  <ConfigText
+                    name={key} key={key} args={value}
+                    handleChange={handleTextChange(key)}
+                  />
+                )
               } else if (['BOOL', 'SELECT'].includes(value.type)) {
-                return (<ConfigSelect name={key} key={key} args={value} />)
+                return (
+                  <ConfigSelect
+                    name={key} key={key} args={value}
+                    handleChange={handleSelectChange(key)}
+                  />
+                )
               }
             })
           }
