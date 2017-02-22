@@ -1,0 +1,21 @@
+@import '../../styles/palette.scss';
+
+.wrapper {
+    display: flex;
+    align-items: center;
+
+    .configLabel {
+        margin: 8px;
+        width: 60px;
+
+        font-size: 14px;
+        color: $text-color;
+        text-align: right;
+
+        /* overflow behavior */
+        text-overflow: ellipsis;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+}

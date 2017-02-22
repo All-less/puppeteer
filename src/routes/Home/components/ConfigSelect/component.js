@@ -1,23 +1,10 @@
-import React, { Component } from 'react'
-import TextField from 'material-ui/TextField'
+import React, { Component, PropTypes } from 'react'
 import SelectField from 'material-ui/SelectField'
 import MenuItem from 'material-ui/MenuItem'
 
 import style from './style.scss'
 import palette from '../../styles/palette'
 
-
-const textStyle = {
-  width: 150,
-  backgroundColor: 'white',
-  borderRadius: 4,
-  margin: 8,
-  height: 32,
-  padding: 4,
-  fontWeight: 100,
-  fontSize: 14,
-  color: palette.textColor,
-}
 
 const selectStyle = {
   style: { // overall element
@@ -57,18 +44,9 @@ const selectStyle = {
   }
 }
 
-class ConfigField extends Component {
-
-  renderText(name, args) {
-    return (
-      <div className={style.wrapper}>
-        <span className={style.configLabel}>{name}</span>
-        <TextField id={name} underlineShow={false} style={textStyle} />
-      </div>
-    )
-  }
-
-  renderSelect(name, args) {
+class ConfigSelect extends Component {
+  render() {
+    const { name, args } = this.props
     return (
       <div className={style.wrapper}>
         <span className={style.configLabel}>{name}</span>
@@ -85,16 +63,6 @@ class ConfigField extends Component {
       </div>
     )
   }
-
-  render() {
-    const { name, args } = this.props
-    switch (args.type) {
-      case 'TEXT': case 'INTEGER': case 'FLOAT':
-        return this.renderText(name, args)
-      case 'SELECT': case 'BOOL':
-        return this.renderSelect(name, args)
-    }
-  }
 }
 
-export default ConfigField
+export default ConfigSelect

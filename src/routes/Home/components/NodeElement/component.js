@@ -8,7 +8,8 @@ import Toggle from 'material-ui/Toggle'
 import FontIcon from 'material-ui/FontIcon';
 
 import Port from '../Port'
-import ConfigField from '../ConfigField'
+import ConfigSelect from '../ConfigSelect'
+import ConfigText from '../ConfigText'
 import style from './style.scss'
 
 
@@ -64,9 +65,11 @@ class NodeElement extends React.Component {
         </div>
           {
             _.toPairs(config).map(([key, value]) => {
-              return (
-                <ConfigField name={key} key={key} args={value} />
-              )
+              if (['TEXT', 'INTEGER', 'FLOAT'].includes(value.type)) {
+                return (<ConfigText name={key} key={key} args={value} />)
+              } else if (['BOOL', 'SELECT'].includes(value.type)) {
+                return (<ConfigSelect name={key} key={key} args={value} />)
+              }
             })
           }
       </div>
