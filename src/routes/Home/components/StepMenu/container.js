@@ -4,10 +4,9 @@ import { connect } from 'react-redux'
 import { compose, withHandlers } from 'recompose'
 
 import StepMenu from './component'
-import { toggle, updateMenu } from '../../modules/menu'
+import { updateMenu } from '../../modules/menu'
 import { createNode, updateNodePos, removeNode } from '../../modules/nodes'
 import { setCreating } from '../../modules/editor'
-import { intercept } from '../../../../store/intercept'
 
 
 const getStepList = gql`
@@ -34,7 +33,7 @@ const getStepListOptions = {
 
 const mapStateToProps = (state) => ({
   items: state.menu.items,
-  creatingNodeId: state.editor.creatingNodeId,
+  creatingNodeId: state.editor.creatingNodeId
 })
 
 const mapDispatchToProps = {

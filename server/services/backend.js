@@ -4,6 +4,7 @@ const BackendModel = require('../models/backend').model
 const StepModel = require('../models/step').model
 const grpcClient = require('../grpc')
 
+
 const initBackend = (id, addr) => {
   // initilize a new client for each backend
   grpcClient.newClient(id, addr)

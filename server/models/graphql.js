@@ -5,6 +5,7 @@ const _ = require('lodash')
 const Backend = require('../models/backend')
 const Step = require('../models/step')
 const Model = require('../models/model')
+const User = require('../models/user')
 
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
@@ -16,6 +17,7 @@ const schema = buildSchema(`
   ${Backend.type}
   ${Step.type}
   ${Model.type}
+  ${User.type}
 
   type Query {
     ${Backend.query}
@@ -26,6 +28,7 @@ const schema = buildSchema(`
   type Mutation {
     ${Backend.mutation}
     ${Model.mutation}
+    ${User.mutation}
   }
 `)
 
@@ -33,7 +36,8 @@ const schema = buildSchema(`
 const root = _.merge(
   require('../services/backend').resolver,
   require('../services/step').resolver,
-  require('../services/model').resolver
+  require('../services/model').resolver,
+  require('../services/user').resolver
 )
 
 module.exports = debug => (graphqlHTTP({

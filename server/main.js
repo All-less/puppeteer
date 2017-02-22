@@ -42,6 +42,14 @@ app.use(bodyParser.urlencoded({ extended: true }))
 // automatically parse cookie content
 app.use(cookieParser(project.cookie_secret))
 
+// GraphQL server
+const graphql = require('./models/graphql')
+app.use('/graphql', graphql(project.env === 'development'))
+
+// socket.io server
+// const apply = require('./websocket').default
+// apply(app)
+
 // ------------------------------------
 // Apply Webpack HMR Middleware
 // ------------------------------------
@@ -96,13 +104,5 @@ if (project.env === 'development') {
   // server in production.
   app.use(express.static(project.paths.dist()))
 }
-
-// GraphQL server
-const graphql = require('./models/graphql')
-app.use('/graphql', graphql(project.env === 'development'))
-
-// socket.io server
-// const apply = require('./websocket').default
-// apply(app)
 
 module.exports = app

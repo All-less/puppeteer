@@ -6,6 +6,8 @@ import Header from '..//Header'
 import Editor from '../Editor'
 import StepMenu from '../StepMenu'
 import StatusPanel from '../StatusPanel'
+import SigninDialog from '../SigninDialog'
+import SignupDialog from '../SignupDialog'
 
 import style from './style.scss'
 
@@ -33,6 +35,8 @@ class HomeLayout extends React.Component {
               </div>
             </div>
           </main>
+          <SigninDialog />
+          <SignupDialog />
         </div>
       </MuiThemeProvider>
     )
