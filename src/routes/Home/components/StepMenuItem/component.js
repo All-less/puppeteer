@@ -8,7 +8,7 @@ import StepMenuSubitem from '../StepMenuSubitem'
 
 
 const itemClass = cn('mdl-components__link', 'mdl-component', style.item)
-const arrowClass = cn("material-icons", style.arrow)
+const arrowClass = cn('material-icons', style.arrow)
 const textClass = cn('mdl-components__link-text', style.text)
 
 class StepMenuItem extends Component {
@@ -27,7 +27,7 @@ class StepMenuItem extends Component {
           {
             expanded && subitems.map((subitem, index) => (
               <StepMenuSubitem
-                phase={phase} step={subitem.name} key={index}
+                phase={phase} step={subitem.name} key={index} backend={subitem.backend}
                 color={'color'} config={JSON.parse(subitem.config)}
                 />
             ))

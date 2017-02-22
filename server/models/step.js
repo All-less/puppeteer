@@ -15,6 +15,9 @@ const StepType = `
     name: String!
     phase: String!
     config: String!
+
+    # the if of backend
+    backend: String!
   }
 `
 const StepQuery = `

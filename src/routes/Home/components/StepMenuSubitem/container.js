@@ -21,14 +21,14 @@ const handlerMap = {
   handleMouseDown: props => event => {
     event.preventDefault()
     const {
-      creatingNodeId, setCreating, createNode, phase, step, config
+      creatingNodeId, setCreating, createNode, phase, step, config, backend
     } = props
     invariant(!creatingNodeId, 'The creatingNodeId is not null when attempting to create a node.')
     const id = _.uniqueId()
     setCreating(id)
     createNode(
       id, event.clientX, event.clientY,
-      phase, step, config
+      phase, step, config, backend
     )
   }
 }

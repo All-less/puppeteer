@@ -37,11 +37,11 @@ class Header extends Component {
             {
               username
                 ? [
-                  <span {...spanProps} >{`${username} 欢迎您`}</span>,
-                  <a {...linkProps} onClick={handleLogout} >注销</a>
+                  <span key="welcome" {...spanProps} >{`${username} 欢迎您`}</span>,
+                  <a key="logout" {...linkProps} onClick={handleLogout} >注销</a>
                 ] : [
-                  <a {...linkProps} onClick={handleSignin} >登录</a>,
-                  <a {...linkProps} onClick={handleSignup} >注册</a>
+                  <a key="login" {...linkProps} onClick={handleSignin} >登录</a>,
+                  <a key="signup" {...linkProps} onClick={handleSignup} >注册</a>
                 ]
             }
           </nav>

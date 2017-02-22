@@ -5,7 +5,7 @@ import { compose, withHandlers } from 'recompose'
 
 import StepMenu from './component'
 import { updateMenu } from '../../modules/menu'
-import { createNode, updateNodePos, removeNode } from '../../modules/nodes'
+import { updateNodePos, removeNode } from '../../modules/nodes'
 import { setCreating } from '../../modules/editor'
 
 
@@ -15,6 +15,7 @@ const getStepList = gql`
       name
       phase
       config
+      backend
     }
   }
 `
@@ -37,7 +38,6 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = {
-  createNode,
   updateNodePos,
   setCreating,
   removeNode,
