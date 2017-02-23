@@ -5,51 +5,23 @@ const Schema = mongoose.Schema
 const ModelSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: 'User' },
   name: String,
-  steps: [{
-    id: Number,
-    prev: Number,
-    next: Number,
-    name: String,
-    phase: String,
-    backend: { type: Schema.Types.ObjectId, ref: 'Backend' },
-    config: String, // JSON encoded string
-    configDef: String // same as above
-  }]
+  nodes: String,
+  links: String
 })
 const ModelModel = mongoose.model('Model', ModelSchema)
 
 const ModelType = `
-  type StepSpec {
-    id: Int!
-    prev: Int!
-    next: Int!
+  type Model {
+    _id: String!
     name: String!
-    phase: String!
-    backend: String!
-    config: String!
-    configDef: String!
-  }
-
-  input StepSpecInput {
-    id: Int!
-    prev: Int!
-    next: Int!
-    name: String!
-    phase: String!
-    backend: String!
-    config: String!
-    configDef: String!
+    nodes: String!
+    links: String!
   }
 
   input ModelInput {
     name: String!
-    steps: [StepSpecInput]!
-  }
-
-  type Model {
-    id: Int!
-    name: String!
-    steps: [StepSpec]!
+    nodes: String!
+    links: String!
   }
 `
 
@@ -58,9 +30,9 @@ const ModelQuery = `
 `
 
 const ModelMutation = `
-  renameModel(id: Int!, name: String!): Model
-  createModel(model: ModelInput!): Model
-  updateModel(id: Int!, model: ModelInput!): Model
+  createModel(userId: String, model: ModelInput!): Model
+  updateModel(id: String!, model: ModelInput!): Model
+  deleteModel(id: String!): Model
 `
 
 module.exports = {

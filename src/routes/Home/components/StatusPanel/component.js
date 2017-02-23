@@ -85,7 +85,7 @@ class StatusPanel extends Component {
         </div>
         <div className={style.name}>
           <div className={style.nameHeader}>
-            <span className={style.nameTitle}>修改名称</span>
+            <span className={style.nameTitle}>编辑模型</span>
             <FlatButton
               className={style.nameButton} label="保存" primary
               style={styleProps.button}

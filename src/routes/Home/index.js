@@ -5,6 +5,7 @@ import links from './modules/links'
 import nodes from './modules/nodes'
 import menu from './modules/menu'
 import auth from './modules/auth'
+import model from './modules/model'
 
 // Sync route definition
 export default store => ({
@@ -14,6 +15,7 @@ export default store => ({
     injectReducer(store, { key: 'nodes', reducer: nodes })
     injectReducer(store, { key: 'menu', reducer: menu })
     injectReducer(store, { key: 'auth', reducer: auth })
+    injectReducer(store, { key: 'model', reducer: model })
     cb(null, HomeLayout)
   }
 })

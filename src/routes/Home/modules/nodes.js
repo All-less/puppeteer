@@ -30,6 +30,9 @@ export const updateValue = createAction(
   'NODES/UPDATE_VALUE',
   (path, value) => ({ path, value })
 )
+export const setNodes = createAction(
+  'NODES/SET_NODES'
+)
 
 const initialState = {
   /*
@@ -103,7 +106,8 @@ const handlerMap = {
     const res = _.assign({}, state)
     _.set(res, path, value)
     return res
-  }
+  },
+  [setNodes]: (state, action) => (action.payload)
 }
 
 export default handleActions(handlerMap, initialState)

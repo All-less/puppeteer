@@ -1,0 +1,130 @@
+# Backend
+
+query {
+  backendList {
+    id
+    name
+    status
+    addr
+    service
+  }
+}
+
+mutation {
+  createBackend(input: {
+    name: "mock"
+    addr: "localhost:8980"
+  }) {
+    id
+    name
+    addr
+    service
+    status
+  }
+}
+
+mutation {
+  deleteBackend(id: "58aab886d9064cbba6669670") {
+    id
+    name
+    service
+    addr
+    status
+  }
+}
+
+mutation {
+  refreshBackend(id: "58aab7aed9064cbba6669668") {
+    id
+    name
+    service
+    addr
+    status
+  }
+}
+
+# Step
+
+query {
+  stepList {
+    name
+    phase
+    config
+    backend
+  }
+}
+
+# User
+
+mutation {
+  signup(username: "test12", password: "test1234") {
+    msg
+    user {
+      id
+      username
+    }
+  }
+}
+
+mutation {
+  login(username: "test12", password: "test1234") {
+    msg
+    user {
+      id
+      username
+    }
+  }
+}
+
+mutation {
+  logout(id: "58ad33dc6ecef83b12b78209") {
+    id
+    username
+  }
+}
+
+# Model
+
+mutation {
+  createModel(userId: "58ad33dc6ecef83b12b78209", model: {
+    name: "test"
+    links: "links"
+    nodes: "nodes"
+  }) {
+    _id
+    name
+    nodes
+    links
+  }
+}
+
+query {
+  modelList(userId: "58ad33dc6ecef83b12b78209") {
+    _id
+    name
+    nodes
+    links
+  }
+}
+
+mutation {
+  updateModel(id: "58ae6b6dce066a7eac7193e2", model: {
+    name: "test"
+    links: "new links"
+    nodes: "new nodes"
+  }) {
+    _id
+    name
+    nodes
+    links
+  }
+}
+
+mutation {
+  deleteModel (id: "58ae6b6dce066a7eac7193e2") {
+    _id
+    name
+    nodes
+    links
+  }
+}

@@ -9,6 +9,18 @@ import { updateNodePos, removeNode } from '../../modules/nodes'
 import { setCreating } from '../../modules/editor'
 
 
+const mapStateToProps = (state) => ({
+  items: state.menu.items,
+  creatingNodeId: state.editor.creatingNodeId
+})
+
+const mapDispatchToProps = {
+  updateNodePos,
+  setCreating,
+  removeNode,
+  updateMenu
+}
+
 const getStepList = gql`
   query {
     stepList {
@@ -30,18 +42,6 @@ const getStepListOptions = {
       return prev
     }
   })
-}
-
-const mapStateToProps = (state) => ({
-  items: state.menu.items,
-  creatingNodeId: state.editor.creatingNodeId
-})
-
-const mapDispatchToProps = {
-  updateNodePos,
-  setCreating,
-  removeNode,
-  updateMenu
 }
 
 const handlerMap = {

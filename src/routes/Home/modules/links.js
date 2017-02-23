@@ -4,6 +4,7 @@ import _ from 'lodash'
 
 export const createLink = createAction('LINKS/CREATE_LINK', (src, dst) => ({ src, dst }))
 export const removeNodeLinks = createAction('LINKS/REMOVE_NODE_LINKES', id => id)
+export const setLinks = createAction('LINKS/SET_LINKS')
 
 const initialState = {
   /*
@@ -29,7 +30,8 @@ const handlerMap = {
   [removeNodeLinks]: (state, action) => {
     const id = action.payload
     return _.omitBy(state, (link) => (link.src.id === id || link.dst.id === id))
-  }
+  },
+  [setLinks]: (state, action) => (action.payload)
 }
 
 export default handleActions(handlerMap, initialState)
