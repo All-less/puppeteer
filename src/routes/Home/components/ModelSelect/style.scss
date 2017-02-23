@@ -1,0 +1,20 @@
+@import '../../styles/mixin.scss';
+
+.wrapper {
+
+    .top {
+        @include sectionHeader
+
+        .title {
+            @include sectionTitle
+        }
+
+        .button {
+            @include sectionButton
+        }
+    }
+
+    .select {
+        width: calc(90%);
+    }
+}

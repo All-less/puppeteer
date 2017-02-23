@@ -1,53 +1,7 @@
 @import '../../styles/palette.scss';
-@import '../../styles/mixin.scss';
 
 .wrapper {
     border-left: 1px solid $divider-color;
     height: 100%;
     overflow: scroll;
-
-    .model {
-
-        .modelHeader {
-            @include sectionHeader
-
-            .modelTitle {
-                @include sectionTitle
-            }
-        }
-
-        .modelSelect {
-            width: calc(90%);
-        }
-    }
-
-    .name {
-
-        .nameHeader {
-            @include sectionHeader
-
-            .nameTitle {
-                @include sectionTitle
-            }
-
-            .nameButton {
-                @include sectionButton
-            }
-        }
-    }
-
-    .exec {
-
-        .execHeader {
-            @include sectionHeader
-
-            .execTitle {
-                @include sectionTitle
-            }
-
-            .execButton {
-                @include sectionButton
-            }
-        }
-    }
 }

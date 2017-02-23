@@ -33,6 +33,7 @@ const ModelMutation = `
   createModel(userId: String, model: ModelInput!): Model
   updateModel(id: String!, model: ModelInput!): Model
   deleteModel(id: String!): Model
+  runModel(model: ModelInput!): String  # return error message
 `
 
 module.exports = {

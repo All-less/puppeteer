@@ -128,3 +128,11 @@ mutation {
     links
   }
 }
+
+mutation {
+  runModel(model: {
+    name: "test"
+    links: ""
+    nodes: ""
+  })
+}

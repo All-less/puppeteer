@@ -1,4 +1,5 @@
 const _ = require('lodash')
+const execModel = require('./train')
 // here we means the database model of
 // a machine learning model
 const ModelModel = require('../models/model').model
@@ -24,6 +25,12 @@ const ModelResolver = {
       .then((res) => {
         return res.remove()
       })
+  },
+  runModel: ({ model }, req) => {
+    setTimeout(() => {
+      execModel(model, req.session.userId)
+    }, 0)
+    return 'SUBMIT_SUCCESS'
   }
 }
 

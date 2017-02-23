@@ -10,10 +10,6 @@ const User = require('../models/user')
 // Construct a schema, using GraphQL schema language
 const schema = buildSchema(`
 
-  type JsonString {
-    content: String!
-  }
-
   ${Backend.type}
   ${Step.type}
   ${Model.type}

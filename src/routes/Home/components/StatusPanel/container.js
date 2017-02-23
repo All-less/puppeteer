@@ -39,12 +39,14 @@ const getModelListOptions = {
       if (type === 'APOLLO_QUERY_RESULT' && result.data.modelList) {
         setTimeout(() => { setModels(result.data.modelList) }, 0)
       }
-    }
-  })
+      return prev
+    },
+  }),
+  skip: ({ userId }) => (userId === null) // skip if the user is not logged in
 }
 
 export default compose(
-  connect(mapStateToProps),
+  connect(mapStateToProps, mapDispatchToProps),
   graphql(getModelList, getModelListOptions),
   branch(branchCondition, branchComponent)
 )(StatusPanel)

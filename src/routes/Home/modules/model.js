@@ -7,6 +7,11 @@ import { setNodes } from './nodes'
 
 export const setModels = createAction('MODEL/SET_MODELS')
 export const setCurrent = createAction('MODEL/SET_CURRENT', name => (name))
+export const resetModelThunk = () => (dispatch) => {
+  dispatch(setLinks({}))
+  dispatch(setNodes({}))
+  dispatch(setCurrent(null))
+}
 export const setCurrentThunk = (name) => (dispatch, getState) => {
   const { links, nodes } = _.find(getState().model.list, { name })
   // the following order is necessary
@@ -16,9 +21,14 @@ export const setCurrentThunk = (name) => (dispatch, getState) => {
   dispatch(setLinks(JSON.parse(links))) // insert links
   dispatch(setCurrent(name))
 }
+export const addModel = createAction('MODEL/ADD_MODEL')
+export const updateModel = createAction('MODEL/UPDATE_MODEL')
+export const setModelEditValue = createAction('MODEL/SET_MODEL_EDIT_VALUE')
+export const toggleRunning = createAction('MODEL/TOGGLE_RUNNING')
 
 const initialState = {
-  cur: '未命名',
+  curName: null,
+  curId: null,
   list: [/*
     {
       _id: 'model_id',
@@ -26,15 +36,41 @@ const initialState = {
       links: 'json_encoded_links',
       nodes: 'json_encoded_nodes'
     }
-  */]
+  */],
+  editValue: '',
+  running: false
 }
 
 const handlerMap = {
   [setModels]: (state, action) => ({
     ...state, list: action.payload
   }),
-  [setCurrent]: (state, action) => ({
-    ...state, cur: action.payload
+  [setCurrent]: (state, action) => (
+    !action.payload
+      ? { ...state, curName: null, curId: null, editValue: '' }
+      : {
+        ...state,
+        curName: action.payload,
+        curId: _.find(state.list, { name: action.payload })._id,
+        editValue: action.payload
+      }
+  ),
+  [addModel]: (state, action) => ({
+    ...state, list: _.concat(state.list, action.payload)
+  }),
+  [updateModel]: (state, action) => {
+    const model = action.payload
+    const res = {
+      ...state,
+      list: _.concat(_.remove(state.list, { _id: model.id }), model)
+    }
+    return res
+  },
+  [setModelEditValue]: (state, action) => ({
+    ...state, editValue: action.payload
+  }),
+  [toggleRunning]: (state, action) => ({
+    ...state, running: action.payload === undefined ? !state.running : action.payload
   })
 }
 

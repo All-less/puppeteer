@@ -1,4 +1,5 @@
 const UserModel = require('../models/user').model
+const ModelModel = require('../models/model').model
 const crypto = require('crypto')
 const Promise = require('bluebird')
 
@@ -11,7 +12,6 @@ const cookPassword = (key, salt) => {
     .update(key.slice(mid))
     .digest('base64')
 }
-
 
 const UserResolver = {
   signup: Promise.coroutine(function* ({ username, password }, req) {
@@ -26,7 +26,7 @@ const UserResolver = {
       const user = yield (new UserModel(newUser)).save()
       user.id = user._id.toString()
       req.session.userId = user.id
-      return { msg: 'SIGNUP_SUCCESS', user}
+      return { msg: 'SIGNUP_SUCCESS', user }
     }
   }),
   login: ({ username, password }, req) => {
