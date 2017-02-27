@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, PropTypes } from 'react'
 import cn from 'classnames'
 import Popover from 'material-ui/Popover'
 import TextField from 'material-ui/TextField'
@@ -16,20 +16,21 @@ import style from './style.scss'
 class NodeElement extends React.Component {
 
   static propTypes = {
-    nodeId: React.PropTypes.string.isRequired,
-    pos: React.PropTypes.array.isRequired,
-    phase: React.PropTypes.string.isRequired,
-    step: React.PropTypes.string.isRequired,
-    outPorts: React.PropTypes.object.isRequired,
-    inPorts: React.PropTypes.object.isRequired,
-    editorOrigin: React.PropTypes.array.isRequired,
-    selectedNodeId: React.PropTypes.string,
-    config: React.PropTypes.object,
+    nodeId: PropTypes.string.isRequired,
+    pos: PropTypes.array.isRequired,
+    phase: PropTypes.string.isRequired,
+    step: PropTypes.string.isRequired,
+    outPorts: PropTypes.object.isRequired,
+    inPorts: PropTypes.object.isRequired,
+    editorOrigin: PropTypes.array.isRequired,
+    selectedNodeId: PropTypes.string,
+    config: PropTypes.object,
+    expanded: PropTypes.bool.isRequired,
 
-    setPortPos: React.PropTypes.func.isRequired,
-    resetPortPos: React.PropTypes.func.isRequired,
-    setSelected: React.PropTypes.func.isRequired,
-    updateDeltaPos: React.PropTypes.func.isRequired
+    setPortPos: PropTypes.func.isRequired,
+    resetPortPos: PropTypes.func.isRequired,
+    setSelected: PropTypes.func.isRequired,
+    updateDeltaPos: PropTypes.func.isRequired
   }
 
   componentWillMount() {
@@ -39,10 +40,9 @@ class NodeElement extends React.Component {
 
   render() {
     const {
-      nodeId, pos, phase, step, inPorts, outPorts,
+      nodeId, pos, phase, step, inPorts, outPorts, expanded,
       selected, editorOrigin, selectedNodeId, config,
-      handleClose, handleMouseDown, handleTextChange,
-      handleSelectChange
+      handleClose, handleMouseDown, toggleSize
     } = this.props
     const nodeClass = cn(style.node, {[style.selected]: selectedNodeId === nodeId})
     const nodeStyle = {left: pos[0] - editorOrigin[0], top: pos[1] - editorOrigin[1]}
@@ -55,30 +55,31 @@ class NodeElement extends React.Component {
           <FontIcon className={iconClass} style={iconStyle} onClick={handleClose}>
             close
           </FontIcon>
+          <FontIcon className={iconClass} style={iconStyle} onClick={toggleSize}>
+            { expanded ? 'remove_circle_outline' : 'add_circle_outline' }
+          </FontIcon>
         </div>
         <div className={style.ports}>
           <div className={style.inPorts}>
-            <Port isInPort={true} name={'in'} nodeId={nodeId} pos={pos}/>
+            {/*
+              1. Pass pos in to force Port rerender when node moves.
+              2. Pass expanded in to force Port rerender when it collapses or expands.
+            */}
+            <Port isInPort={true} name={'in'} nodeId={nodeId} pos={pos} expanded={expanded} />
           </div>
           <div className={style.outPorts}>
-            <Port isInPort={false} name={'out'} nodeId={nodeId} pos={pos}/>
+            <Port isInPort={false} name={'out'} nodeId={nodeId} pos={pos}expanded={expanded} />
           </div>
         </div>
           {
-            _.toPairs(config).map(([key, value]) => {
-              if (['TEXT', 'INTEGER', 'FLOAT'].includes(value.type)) {
+            expanded && _.toPairs(config).map(([name, args]) => {
+              if (['TEXT', 'INTEGER', 'FLOAT'].includes(args.type)) {
                 return (
-                  <ConfigText
-                    name={key} key={key} args={value}
-                    handleChange={handleTextChange(key)}
-                  />
+                  <ConfigText name={name} key={name} nodeId={nodeId} />
                 )
-              } else if (['BOOL', 'SELECT'].includes(value.type)) {
+              } else if (['BOOL', 'SELECT'].includes(args.type)) {
                 return (
-                  <ConfigSelect
-                    name={key} key={key} args={value}
-                    handleChange={handleSelectChange(key)}
-                  />
+                  <ConfigSelect name={name} key={name} nodeId={nodeId} />
                 )
               }
             })

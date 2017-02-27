@@ -3,7 +3,7 @@ import { compose, withHandlers } from 'recompose'
 
 import NodeElement from './component'
 import {
-  setPortPos, resetPortPos, removeNode, updateValue
+  setPortPos, resetPortPos, removeNode, updateValue, toggleNode
 } from '../../modules/nodes'
 import { setSelected, updateDeltaPos } from '../../modules/editor'
 import { removeNodeLinks } from '../../modules/links'
@@ -21,7 +21,8 @@ const mapDispatchToProps = {
   updateDeltaPos,
   removeNode,
   removeNodeLinks,
-  updateValue
+  updateValue,
+  toggleNode
 }
 
 const handlerMap = {
@@ -42,6 +43,10 @@ const handlerMap = {
   handleSelectChange: props => name => (event, key, payload) => {
     const { nodeId, updateValue } = props
     updateValue([nodeId, 'config', name, 'value'], payload)
+  },
+  toggleSize: props => event => {
+    const { nodeId, toggleNode, rerenderLinks } = props
+    toggleNode(nodeId)
   }
 }
 

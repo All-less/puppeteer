@@ -14,11 +14,15 @@ const mapStateToProps = (state) => ({
 })
 
 const runModel = gql`
-  mutation ($name: String!, $links: String!, $nodes: String!) {
+  mutation (
+    $name: String!, $links: String!,
+    $nodes: String!, $extra: String!
+  ) {
     runModel(model: {
       name: $name
       links: $links
       nodes: $nodes
+      extra: $extra
     })
   }
 `
@@ -26,11 +30,12 @@ const runModel = gql`
 const createProps = ({ dispatch, mutate, curName }) => ({
   runModelThunk: () => {
     dispatch((dispatch, getState) => {
-      const { links, nodes } = getState()
+      const { links, nodes, model } = getState()
       const variables = {
         name: curName || 'name',
         links: JSON.stringify(links),
-        nodes: JSON.stringify(nodes)
+        nodes: JSON.stringify(nodes),
+        extra: model.extra
       }
       mutate({ variables })
         .then((res) => {

@@ -63,6 +63,8 @@ message RunSpec {
     string id = 1;
     // a model containing all steps
     ModelSpec model = 2;
+    // extra information provided by user
+    string extra = 3;
 }
 
 // specification of a step

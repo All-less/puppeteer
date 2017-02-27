@@ -19,12 +19,12 @@ const textStyle = {
 
 class ConfigText extends Component {
   render() {
-    const { name, args, handleChange } = this.props
+    const { name, handleChange, value } = this.props
     return (
       <div className={style.wrapper}>
         <span className={style.configLabel}>{name}</span>
         <TextField
-          id={name} underlineShow={false}
+          id={name} underlineShow={false} value={value}
           style={textStyle} onChange={handleChange}
         />
       </div>

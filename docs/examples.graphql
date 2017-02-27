@@ -90,11 +90,13 @@ mutation {
     name: "test"
     links: "links"
     nodes: "nodes"
+    extra: "extra information"
   }) {
     _id
     name
     nodes
     links
+    extra
   }
 }
 
@@ -104,6 +106,7 @@ query {
     name
     nodes
     links
+    extra
   }
 }
 
@@ -112,11 +115,13 @@ mutation {
     name: "test"
     links: "new links"
     nodes: "new nodes"
+    extra: "extra information"
   }) {
     _id
     name
     nodes
     links
+    extra
   }
 }
 
@@ -126,6 +131,7 @@ mutation {
     name
     nodes
     links
+    extra
   }
 }
 
@@ -134,5 +140,6 @@ mutation {
     name: "test"
     links: ""
     nodes: ""
+    extra: ""
   })
 }

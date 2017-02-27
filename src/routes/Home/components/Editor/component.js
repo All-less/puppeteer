@@ -12,8 +12,6 @@ class Editor extends React.Component {
     origin: React.PropTypes.array.isRequired,
     selectedNodeId: React.PropTypes.string,
     creatingNodeId: React.PropTypes.string,
-    nodeMap: React.PropTypes.object.isRequired,
-    linkMap: React.PropTypes.object.isRequired,
     creatingLink: React.PropTypes.bool.isRequired,
     deltaPos: React.PropTypes.array.isRequired,
 
@@ -57,25 +55,14 @@ class Editor extends React.Component {
   }
 
   render() {
-    const { linkMap, nodeMap } = this.props
-    let linksToRender = {}
-    _.forOwn(linkMap, (link, id) => {
-      // check whether positions of endpoints are computed
-      const src = nodeMap[link.src.id].outPorts[link.src.port]
-      const dst = nodeMap[link.dst.id].inPorts[link.dst.port]
-      if (src.computed && dst.computed) {
-        linksToRender[id] = { id, src: src.pos, dst: dst.pos }
-      }
-    })
-
     return (
       <div
         style={{ height: '100%', boxShadow: 'inset 0 0 10px rgba(0, 0, 0, 0.1)' }}
         ref={(e) => { e && this.setRelativeOrigin(e) }}
         onMouseMove={this.handleMouseMove}
         onMouseUp={this.handleMouseUp}>
-        <LinkLayer linkMap={linksToRender} style={{ position: 'absolute' }}/>
-        <NodeLayer nodeMap={nodeMap} style={{ position: 'absolute' }}/>
+        <LinkLayer style={{ position: 'absolute' }}/>
+        <NodeLayer style={{ position: 'absolute' }}/>
       </div>
     )
   }

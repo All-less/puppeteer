@@ -28,6 +28,7 @@ const getModelList = gql`
       name
       nodes
       links
+      extra
     }
   }
 `

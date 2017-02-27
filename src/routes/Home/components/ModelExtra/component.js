@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import FlatButton from 'material-ui/FlatButton'
 import TextField from 'material-ui/TextField'
 
 import style from './style.scss'
@@ -7,12 +6,6 @@ import palette from '../../styles/palette'
 
 
 const styleProps = {
-  button: {
-    lineHeight: 'inherit',
-    height: 'inherit',
-    width: 'initial',
-    color: palette.accentTextColor
-  },
   text: {
     width: 'calc(90%)',
     backgroundColor: palette.secondaryBackgroundColor,
@@ -27,21 +20,17 @@ const styleProps = {
   }
 }
 
-class ModelTrain extends Component {
+class ModelExtra extends Component {
   render() {
-    const { running, handleRun, res } = this.props
+    const { handleChange, value } = this.props
     return (
       <div className={style.wrapper}>
         <div className={style.top}>
-          <span className={style.title}>训练模型</span>
-          <FlatButton
-            className={style.button} label="运行" primary onClick={handleRun}
-            style={styleProps.button} disabled={running}
-          />
+          <span className={style.title}>额外参数</span>
         </div>
         <TextField
-          id="exec_field" underlineShow={false} multiLine rowsMax={5}
-          style={styleProps.text} rows={5} value={res.join('\n')}
+          id="extra_field" underlineShow={false} value={value || ''} multiLine
+          style={styleProps.text} onChange={handleChange} rows={3} rowsMax={3}
           textareaStyle={styleProps.textarea}
         />
       </div>
@@ -49,4 +38,4 @@ class ModelTrain extends Component {
   }
 }
 
-export default ModelTrain
+export default ModelExtra

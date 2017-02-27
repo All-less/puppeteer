@@ -1,0 +1,7 @@
+@import '../../styles/palette.scss';
+
+.link {
+    stroke: $outline-color;
+    stroke-width: 2px;
+    pointer-event: all;
+}

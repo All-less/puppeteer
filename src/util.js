@@ -19,3 +19,14 @@ export const validatePassword = (password) => {
   }
   return errors
 }
+
+export const computePath = (src, dst, origin) => {
+  const sx = src[0] - origin[0]
+  const sy = src[1] - origin[1]
+  const dx = dst[0] - origin[0]
+  const dy = dst[1] - origin[1]
+  const path = (sx - dx) * (sx - dx) + (sy - dy) * (sy - dy) > 50 * 50
+    ? `M ${sx},${sy} C ${sx + 50},${sy} ${dx - 50},${dy} ${dx},${dy}`
+    : `M ${sx},${sy} L ${dx},${dy}`
+  return path
+}

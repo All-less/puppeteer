@@ -19,6 +19,11 @@ const styleProps = {
     borderRadius: 8,
     marginLeft: 16,
     padding: 8
+  },
+  input: {
+    fontWeight: 100,
+    fontSize: 14,
+    color: palette.textColor
   }
 }
 
@@ -37,6 +42,7 @@ class ModelEdit extends Component {
         <TextField
           id="name_field" underlineShow={false} value={value || ''}
           style={styleProps.text} onChange={handleChange}
+          inputStyle={styleProps.input}
         />
       </div>
     )

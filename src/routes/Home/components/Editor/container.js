@@ -16,9 +16,6 @@ const mapStateToProps = (state) => ({
   selectedNodeId: state.editor.selectedNodeId,
   creatingNodeId: state.editor.creatingNodeId,
   creatingLink: state.editor.creatingLink,
-  nodeMap: state.nodes,
-  linkMap: state.links,
-  creatingLink: state.editor.creatingLink,
   deltaPos: state.editor.deltaPos
 })
 

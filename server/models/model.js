@@ -6,7 +6,8 @@ const ModelSchema = new Schema({
   user: { type: Schema.Types.ObjectId, ref: 'User' },
   name: String,
   nodes: String,
-  links: String
+  links: String,
+  extra: String
 })
 const ModelModel = mongoose.model('Model', ModelSchema)
 
@@ -16,12 +17,14 @@ const ModelType = `
     name: String!
     nodes: String!
     links: String!
+    extra: String
   }
 
   input ModelInput {
     name: String!
     nodes: String!
     links: String!
+    extra: String
   }
 `
 

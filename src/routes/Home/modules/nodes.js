@@ -33,6 +33,9 @@ export const updateValue = createAction(
 export const setNodes = createAction(
   'NODES/SET_NODES'
 )
+export const toggleNode = createAction(
+  'NODES/TOGGLE_NODE'
+)
 
 const initialState = {
   /*
@@ -49,7 +52,8 @@ const initialState = {
     },
     outPorts: {
       ...
-    }
+    },
+    expanded: true
   }
    */
 }
@@ -85,7 +89,8 @@ const handlerMap = {
           config,
           backend,
           inPorts: { in: { computed: false, pos: [0, 0] } },
-          outPorts: { out: { computed: false, pos: [0, 0] } }
+          outPorts: { out: { computed: false, pos: [0, 0] } },
+          expanded: true
         }
       },
       state
@@ -107,7 +112,11 @@ const handlerMap = {
     _.set(res, path, value)
     return res
   },
-  [setNodes]: (state, action) => (action.payload)
+  [setNodes]: (state, action) => (action.payload),
+  [toggleNode]: (state, action) => {
+    const res = _.assign({}, state)
+    return _.update(res, [action.payload, 'expanded'], (prev) => (!prev))
+  }
 }
 
 export default handleActions(handlerMap, initialState)

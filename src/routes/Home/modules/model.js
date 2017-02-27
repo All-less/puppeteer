@@ -7,26 +7,29 @@ import { setNodes } from './nodes'
 
 export const setModels = createAction('MODEL/SET_MODELS')
 export const setCurrent = createAction('MODEL/SET_CURRENT', name => (name))
-export const resetModelThunk = () => (dispatch) => {
-  dispatch(setLinks({}))
-  dispatch(setNodes({}))
-  dispatch(setCurrent(null))
-}
-export const setCurrentThunk = (name) => (dispatch, getState) => {
-  const { links, nodes } = _.find(getState().model.list, { name })
-  // the following order is necessary
-  dispatch(setLinks({})) // clear all links
-  dispatch(setNodes({})) // clear all nodes
-  dispatch(setNodes(JSON.parse(nodes))) // insert nodes
-  dispatch(setLinks(JSON.parse(links))) // insert links
-  dispatch(setCurrent(name))
-}
 export const addModel = createAction('MODEL/ADD_MODEL')
 export const updateModel = createAction('MODEL/UPDATE_MODEL')
 export const setModelEditValue = createAction('MODEL/SET_MODEL_EDIT_VALUE')
 export const toggleRunning = createAction('MODEL/TOGGLE_RUNNING')
 export const appendRes = createAction('MODEL/APPEND_RES')
 export const clearRes = createAction('MODEL/CLEAR_RES')
+export const setModelExtra = createAction('MODEL/SET_MODEL_EXTRA')
+export const resetModelThunk = () => (dispatch) => {
+  dispatch(setLinks({}))
+  dispatch(setNodes({}))
+  dispatch(setModelExtra(''))
+  dispatch(setCurrent(null))
+}
+export const setCurrentThunk = (name) => (dispatch, getState) => {
+  const { links, nodes, extra } = _.find(getState().model.list, { name })
+  // the following order is necessary
+  dispatch(setLinks({})) // clear all links
+  dispatch(setNodes({})) // clear all nodes
+  dispatch(setModelExtra(extra)) // set extra information
+  dispatch(setNodes(JSON.parse(nodes))) // insert nodes
+  dispatch(setLinks(JSON.parse(links))) // insert links
+  dispatch(setCurrent(name))
+}
 
 const initialState = {
   curName: null,
@@ -41,7 +44,8 @@ const initialState = {
   */],
   editValue: '',
   running: false,
-  res: ['line1', 'line2', 'line3', 'line4', 'line5', 'line6']
+  res: [],
+  extra: ''
 }
 
 const handlerMap = {
@@ -65,7 +69,7 @@ const handlerMap = {
     const model = action.payload
     const res = {
       ...state,
-      list: _.concat(_.remove(state.list, { _id: model.id }), model)
+      list: _.concat(_.filter(state.list, (o) => (o._id !== model._id)), model)
     }
     return res
   },
@@ -80,6 +84,9 @@ const handlerMap = {
   }),
   [clearRes]: (state, action) => ({
     ...state, res: []
+  }),
+  [setModelExtra]: (state, action) => ({
+    ...state, extra: action.payload
   })
 }
 

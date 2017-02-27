@@ -46,17 +46,17 @@ const selectStyle = {
 
 class ConfigSelect extends Component {
   render() {
-    const { name, args, handleChange } = this.props
+    const { name, type, options, value, handleChange } = this.props
     return (
       <div className={style.wrapper}>
         <span className={style.configLabel}>{name}</span>
         <SelectField
-          value={1} autoWidth fullWidth={false} onChange={handleChange}
+          value={value} autoWidth fullWidth={false} onChange={handleChange}
           underlineShow={false} {...selectStyle}
           >
           {
-            (args.type === 'BOOL' ? ['是', '否'] : args.options).map((option, index) => (
-              <MenuItem key={index} value={index} primaryText={option} />
+            (type === 'BOOL' ? ['是', '否'] : options).map((option) => (
+              <MenuItem key={option} value={option} primaryText={option} />
             ))
           }
         </SelectField>

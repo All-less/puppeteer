@@ -19,34 +19,40 @@ const mapStateToProps = (state) => ({
 
 const createModelMutation = gql`
   mutation (
-    $userId: String!, $name: String!,
-    $links: String!, $nodes: String!
+    $userId: String!, $name: String!, $links: String!,
+    $nodes: String!, $extra: String
   ) {
     createModel(userId: $userId, model: {
-      name: $name, links: $links, nodes: $nodes
+      name: $name,
+      links: $links,
+      nodes: $nodes,
+      extra: $extra
     }) {
       _id
       name
       nodes
       links
+      extra
     }
   }
 `
 
 const updateModelMutation = gql`
   mutation(
-    $id: String!, $name: String!,
-    $links: String!, $nodes: String!
+    $id: String!, $name: String!, $links: String!,
+    $nodes: String!, $extra: String
   ) {
     updateModel(id: $id, model: {
       name: $name
       links: $links
       nodes: $nodes
+      extra: $extra
     }) {
       _id
       name
       nodes
       links
+      extra
     }
   }
 `
@@ -57,9 +63,12 @@ const createProps = ({
 }) => ({
   saveModel: () => {
     dispatch((dispatch, getState) => {
-      const { links, nodes } = getState()
+      const { links, nodes, model } = getState()
       const modelMixin = {
-        name: value, links: JSON.stringify(links), nodes: JSON.stringify(nodes)
+        name: value,
+        links: JSON.stringify(links),
+        nodes: JSON.stringify(nodes),
+        extra: model.extra
       }
       if (curId) {
         mutateUpdateModel({ variables: { id: curId, ...modelMixin } })

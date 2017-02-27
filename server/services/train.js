@@ -35,17 +35,14 @@ const execModel = (input, userId) => {
       id: _.uniqueId(),
       name: input.name,
       steps
-    }
+    },
+    extra: input.extra
   }
-
-  console.log(JSON.stringify(runSpec))
 
   const onNext = (value) => {
     send(userId, value)
   }
-  const onComplete = () => {
-    console.log('complete')
-  }
+  const onComplete = () => {}
 
   // call backend through grpc
   runStep(nodes[first].backend, runSpec, onNext, onComplete)

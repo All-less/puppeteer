@@ -1,22 +1,27 @@
 import io from 'socket.io-client'
 import { createAction, handleActions } from 'redux-actions'
 
-import { appendRes } from './model'
+import { appendRes, toggleRunning } from './model'
 
 
 const init = (socket, dispatch) => {
-  socket.on('connected', (data) => {
-    console.log(data)
-  })
   socket.on('stepRes', (data) => {
-    console.log(data)
-    dispatch(appendRes(`progress = ${data.progress}`))
+    const reporterMap = {
+      ERROR: () => { dispatch(appendRes(`[ERROR] ${data.msg}`)) },
+      RUNNING: () => { dispatch(appendRes(`[PROGRESS] ${data.progress}`)) },
+      FINISHED: () => { dispatch(appendRes('[FINISHED]')) }
+    }
+    if (data.status in reporterMap) {
+      reporterMap[data.status]()
+    }
+    if (data.progress === 100 || data.status === 'ERROR') {
+      dispatch(toggleRunning(false))
+    }
   })
 }
 
 export const startSocket = createAction('SOCKET/START_SOCKET')
 export const initSocketThunk = () => (dispatch, getState) => {
-  console.log('in initSocketThunk')
   dispatch(startSocket())
   const socket = getState().socket.socket
   init(socket, dispatch)
