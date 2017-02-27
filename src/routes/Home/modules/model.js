@@ -25,6 +25,8 @@ export const addModel = createAction('MODEL/ADD_MODEL')
 export const updateModel = createAction('MODEL/UPDATE_MODEL')
 export const setModelEditValue = createAction('MODEL/SET_MODEL_EDIT_VALUE')
 export const toggleRunning = createAction('MODEL/TOGGLE_RUNNING')
+export const appendRes = createAction('MODEL/APPEND_RES')
+export const clearRes = createAction('MODEL/CLEAR_RES')
 
 const initialState = {
   curName: null,
@@ -38,7 +40,8 @@ const initialState = {
     }
   */],
   editValue: '',
-  running: false
+  running: false,
+  res: ['line1', 'line2', 'line3', 'line4', 'line5', 'line6']
 }
 
 const handlerMap = {
@@ -71,6 +74,12 @@ const handlerMap = {
   }),
   [toggleRunning]: (state, action) => ({
     ...state, running: action.payload === undefined ? !state.running : action.payload
+  }),
+  [appendRes]: (state, action) => ({
+    ...state, res: _.concat(action.payload, state.res)
+  }),
+  [clearRes]: (state, action) => ({
+    ...state, res: []
   })
 }
 

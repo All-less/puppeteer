@@ -5,6 +5,7 @@ import gql from 'graphql-tag'
 import _ from 'lodash'
 
 import { updateValue, toggleSignin, updateUser } from '../../modules/auth'
+import { initSocketThunk } from '../../modules/socket'
 import SigninDialog from './component'
 import { validateUsername, validatePassword } from '../../../../util'
 
@@ -28,7 +29,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   updateUser,
   updateValue,
-  toggleSignin
+  toggleSignin,
+  initSocketThunk
 }
 
 const handlerMap = {
@@ -44,7 +46,10 @@ const handlerMap = {
     props.setPassword(event.target.value)
   },
   handleSubmit: props => event => {
-    const { mutate, setError, username, password, updateUser, toggleSignin } = props
+    const {
+      mutate, setError, username, password,
+      updateUser, toggleSignin, startSocket, initSocketThunk
+    } = props
     const res = _.concat(validateUsername(username), validatePassword(password))
     if (res.length > 0) {
       setError('用户名密码输入有误，请重试')
@@ -53,6 +58,7 @@ const handlerMap = {
         .then((res) => {
           const { msg, user } = res.data.login
           if (msg === 'LOGIN_SUCCESS') {
+            initSocketThunk()
             updateUser(user.id, user.username)
             toggleSignin()
           } else if (msg === 'LOGIN_FAILURE') {

@@ -4,6 +4,7 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
 import { toggleSignin, toggleSignup, updateUser } from '../../modules/auth'
+import { stopSocket } from '../../modules/socket'
 import Header from './component'
 
 
@@ -27,7 +28,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   updateUser,
   toggleSignin,
-  toggleSignup
+  toggleSignup,
+  stopSocket
 }
 
 const handlerMap = {
@@ -38,11 +40,12 @@ const handlerMap = {
     props.toggleSignup()
   },
   handleLogout: props => event => {
-    const { mutate, updateUser, userId } = props
+    const { mutate, updateUser, userId, stopSocket } = props
     mutate({ variables: { userId } })
       .then((res) => {
         const { msg } = res.data.logout
         if (msg === 'LOGOUT_SUCCESS') {
+          stopSocket()
           updateUser(null, null)
         } else if (msg === 'LOGOUT_FAILURE') {
           // TODO: some notification is needed

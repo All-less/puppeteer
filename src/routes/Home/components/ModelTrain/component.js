@@ -24,7 +24,7 @@ const styleProps = {
 
 class ModelTrain extends Component {
   render() {
-    const { running, handleRun } = this.props
+    const { running, handleRun, res } = this.props
     return (
       <div className={style.wrapper}>
         <div className={style.top}>
@@ -35,8 +35,8 @@ class ModelTrain extends Component {
           />
         </div>
         <TextField
-          id="exec_field" underlineShow={false}
-          style={styleProps.text}
+          id="exec_field" underlineShow={false} multiLine rowsMax={5}
+          style={styleProps.text} rows={5} value={res.join('\n')}
         />
       </div>
     )

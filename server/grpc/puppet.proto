@@ -51,16 +51,16 @@ enum FieldType {
 
 // configuration of a field
 message FieldConf {
-     FieldType type = 1;
-     // when type is 'select', a list of options will be included
-     repeated string options = 2;
-     // description of the field
-     string desc = 3;
+    FieldType type = 1;
+    // when type is 'select', a list of options will be included
+    repeated string options = 2;
+    // description of the field
+    string desc = 3;
 }
 
 message RunSpec {
     // id of the step to run
-    uint32 id = 1;
+    string id = 1;
     // a model containing all steps
     ModelSpec model = 2;
 }
@@ -69,11 +69,11 @@ message RunSpec {
 // StepSpec's form a DAG via 'prev' & 'next' fields
 message StepSpec {
     // identifier of the step, which will be used in 'prev' and 'next'
-    uint32 id = 7;
+    string id = 7;
     // previous step
-    repeated int32 prev = 5;
+    repeated string prev = 5;
     // next step
-    repeated int32 next = 6;
+    repeated string next = 6;
 
     // name of the step
     string name = 1;
@@ -86,11 +86,11 @@ message StepSpec {
 // specification of a model
 message ModelSpec {
     // identifier of the model
-    uint32 id = 3;
+    string id = 3;
     // name of the model
     string name = 1;
     // step id -> step specification
-    map<uint32, StepSpec> steps = 2;
+    map<string, StepSpec> steps = 2;
 }
 
 enum StepStatus {
@@ -105,7 +105,7 @@ message StepRes {
     // progress of the step, range: [0, 100]
     int32 progress = 1;
     // a boolean indicating whether there is an error
-    StepStatus statue = 2;
+    StepStatus status = 2;
     // error message / result message
     string msg = 3;
     // a boolean indicating whether the step is finished

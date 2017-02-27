@@ -1,3 +1,5 @@
+const _ = require('lodash')
+const http = require('http')
 const express = require('express')
 const debug = require('debug')('app:server')
 const path = require('path')
@@ -25,12 +27,9 @@ app.use(logger(project.env === 'development' ? 'dev' : 'default'))
 // session
 const session =  require('express-session')
 const MongoStore = require('connect-mongo')(session)
-app.use(session({
-  secret: project.cookie_secret,
-  resave: false,
-  saveUninitialized: false,
-  store: new MongoStore({ mongooseConnection: mongoose.connection })
-}))
+const sessionStore = new MongoStore({ mongooseConnection: mongoose.connection })
+const sessionSetting = _.assign({}, project.session, { store: sessionStore })
+app.use(session(sessionSetting))
 
 // Apply gzip compression
 app.use(compress())
@@ -105,4 +104,9 @@ if (project.env === 'development') {
   app.use(express.static(project.paths.dist()))
 }
 
-module.exports = app
+const server =  http.createServer(app)
+
+// inject socket.io logic
+require('./websocket').default(server, { session: sessionSetting })
+
+module.exports = server

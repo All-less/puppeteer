@@ -5,6 +5,7 @@ import gql from 'graphql-tag'
 import _ from 'lodash'
 
 import { updateValue, toggleSignup, updateUser } from '../../modules/auth'
+import { initSocketThunk } from '../../modules/socket'
 import SignupDialog from './component'
 import { validateUsername, validatePassword } from '../../../../util'
 
@@ -28,7 +29,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   updateUser,
   updateValue,
-  toggleSignup
+  toggleSignup,
+  initSocketThunk
 }
 
 const handlerMap = {
@@ -53,6 +55,7 @@ const handlerMap = {
         .then((res) => {
           const { msg, user } = res.data.signup
           if (msg === 'SIGNUP_SUCCESS') {
+            initSocketThunk()
             updateUser(user.id, user.username)
             toggleSignup()
           } else if (msg === 'USERNAME_DUPLICATE') {

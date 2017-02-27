@@ -4,12 +4,13 @@ import { graphql } from 'react-apollo'
 import gql from 'graphql-tag'
 
 import ModelTrain from './component'
-import { toggleRunning } from '../../modules/model'
+import { toggleRunning, clearRes } from '../../modules/model'
 
 
 const mapStateToProps = (state) => ({
   curName: state.model.curName,
-  running: state.model.running
+  running: state.model.running,
+  res: state.model.res
 })
 
 const runModel = gql`
@@ -33,6 +34,7 @@ const createProps = ({ dispatch, mutate, curName }) => ({
       }
       mutate({ variables })
         .then((res) => {
+          dispatch(clearRes())
           dispatch(toggleRunning(true))
         })
     })

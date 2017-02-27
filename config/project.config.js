@@ -67,6 +67,17 @@ const config = {
     host: 'localhost',
     port: 27017,
     db_name: 'puppeteer'
+  },
+
+  // ----------------------------------
+  // Session Configuration
+  // ----------------------------------
+  session: {
+    name: 'puppeteer.sid',
+    secret: 'changeme',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false }
   }
 }
 
@@ -75,7 +86,7 @@ const config = {
 
 All Internal Configuration Below
 Edit at Your Own Risk
-
+å
 -------------------------------------------------
 ************************************************/
 
