@@ -52,8 +52,8 @@ app.use('/graphql', graphql(project.env === 'development'))
 // ------------------------------------
 // Apply Webpack HMR Middleware
 // ------------------------------------
+const compiler = webpack(webpackConfig)
 if (project.env === 'development') {
-  const compiler = webpack(webpackConfig)
 
   debug('Enabling webpack dev and HMR middleware')
   app.use(require('webpack-dev-middleware')(compiler, {
@@ -102,6 +102,7 @@ if (project.env === 'development') {
   // the web server and not the app server, but this helps to demo the
   // server in production.
   app.use(express.static(project.paths.dist()))
+  app.use('*', express.static(path.join(project.paths.dist(), 'index.html')))
 }
 
 const server = http.createServer(app)
