@@ -12,4 +12,4 @@ EXPOSE 3000
 
 WORKDIR /var/tmp/puppeteer
 
-CMD ["npm", "run start:prod"]
+CMD npm run start:prod
