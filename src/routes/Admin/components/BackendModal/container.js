@@ -23,7 +23,7 @@ const createBackend = gql`
   }
 `
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   showModal: state.backend.showModal
 })
 

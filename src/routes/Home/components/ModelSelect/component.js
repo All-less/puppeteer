@@ -69,7 +69,7 @@ class ModelSelect extends Component {
           {...styleProps}
         >
           {
-            names.map((name) => (
+            names.map(name => (
               <MenuItem key={name} value={name} primaryText={name} />
             ))
           }

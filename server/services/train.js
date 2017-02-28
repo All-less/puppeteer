@@ -22,7 +22,7 @@ const execModel = (input, userId) => {
     next: [],
     prev: [],
     phase: phaseMap[node.phase],
-    config: _.mapValues(node.config, (field) => field.value)
+    config: _.mapValues(node.config, field => field.value)
   }))
   _.forOwn(links, (link) => {
     steps[link.src.id].next.push(link.dst.id)

@@ -9,7 +9,7 @@ import { showSnackbar } from '../../modules/snackbar'
 import { updateBackend, removeBackend } from '../../modules/backend'
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   open: state.popover.open,
   anchor: state.popover.anchor,
   backendId: state.popover.id
@@ -47,12 +47,12 @@ const refreshBackend = gql`
 `
 
 const handlerMap = {
-  handleRefresh: props => event => {
+  handleRefresh: props => (event) => {
     const {
       refreshBackend, updateBackend, showSnackbar, backendId, closePopover
     } = props
     closePopover()
-    refreshBackend({ variables: { id: backendId }})
+    refreshBackend({ variables: { id: backendId } })
       .then((result) => {
         updateBackend(result.data.refreshBackend)
         showSnackbar({ message: '后端刷新成功' })
@@ -62,12 +62,12 @@ const handlerMap = {
         showSnackbar({ message: '后端刷新失败' })
       })
   },
-  handleDelete: props => event => {
+  handleDelete: props => (event) => {
     const {
       deleteBackend, removeBackend, showSnackbar, backendId, closePopover
     } = props
     closePopover()
-    deleteBackend({ variables: { id: backendId }})
+    deleteBackend({ variables: { id: backendId } })
       .then((result) => {
         removeBackend(result.data.deleteBackend.id)
         showSnackbar({ message: '后端移除成功' })
@@ -77,7 +77,7 @@ const handlerMap = {
         showSnackbar({ message: '后端移除失败' })
       })
   },
-  handleClose: props => event => {
+  handleClose: props => (event) => {
     if (event == 'clickAway') {
       props.closePopover()
     }

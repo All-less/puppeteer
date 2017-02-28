@@ -12,19 +12,19 @@ class AdminLayout extends React.Component {
   render() {
     return (
       <MuiThemeProvider>
-        <div className={cn(style.layout, "mdl-layout", "mdl-js-layout", "mdl-layout--fixed-drawer", "mdl-layout--fixed-header")}>
-          <header className={cn(style.header, "mdl-layout__header", "mdl-color--grey-100", "mdl-color-text--grey-600")}>
+        <div className={cn(style.layout, 'mdl-layout', 'mdl-js-layout', 'mdl-layout--fixed-drawer', 'mdl-layout--fixed-header')}>
+          <header className={cn(style.header, 'mdl-layout__header', 'mdl-color--grey-100', 'mdl-color-text--grey-600')}>
             <Header />
           </header>
-          <div className={cn(style.drawer, "mdl-layout__drawer", "mdl-color--blue-grey-900", "mdl-color-text--blue-grey-50")}>
+          <div className={cn(style.drawer, 'mdl-layout__drawer', 'mdl-color--blue-grey-900', 'mdl-color-text--blue-grey-50')}>
             <Sidebar />
           </div>
-          <main className={cn("mdl-layout__content", "mdl-color--grey-100")}>
+          <main className={cn('mdl-layout__content', 'mdl-color--grey-100')}>
             <Dashboard />
           </main>
           <div aria-live="assertive" aria-atomic="true" aria-relevant="text" className="mdl-snackbar mdl-js-snackbar">
-            <div className="mdl-snackbar__text"></div>
-            <button type="button" className="mdl-snackbar__action"></button>
+            <div className="mdl-snackbar__text" />
+            <button type="button" className="mdl-snackbar__action" />
           </div>
         </div>
       </MuiThemeProvider>

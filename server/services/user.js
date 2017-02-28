@@ -22,25 +22,21 @@ const UserResolver = {
     const res = yield UserModel.findOne({ username })
     if (res) {
       return { msg: 'USERNAME_DUPLICATE', user: null }
-    } else {
-      const user = yield (new UserModel(newUser)).save()
-      user.id = user._id.toString()
-      req.session.userId = user.id
-      return { msg: 'SIGNUP_SUCCESS', user }
     }
+    const user = yield (new UserModel(newUser)).save()
+    user.id = user._id.toString()
+    req.session.userId = user.id
+    return { msg: 'SIGNUP_SUCCESS', user }
   }),
-  login: ({ username, password }, req) => {
-    return UserModel.findOne({ username })
+  login: ({ username, password }, req) => UserModel.findOne({ username })
       .then((user) => {
         if (user && user.password === cookPassword(password, user.salt)) {
           user.id = user._id.toString()
           req.session.userId = user.id
           return { msg: 'LOGIN_SUCCESS', user }
-        } else {
-          return { msg: 'LOGIN_FAILURE', user: null }
         }
-      })
-  },
+        return { msg: 'LOGIN_FAILURE', user: null }
+      }),
   logout: ({ id }, req) => {
     req.session.destroy()
     return UserModel.findById(id)

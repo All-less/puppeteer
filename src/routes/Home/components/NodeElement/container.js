@@ -9,7 +9,7 @@ import { setSelected, updateDeltaPos } from '../../modules/editor'
 import { removeNodeLinks } from '../../modules/links'
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   editorOrigin: state.editor.origin,
   selectedNodeId: state.editor.selectedNodeId
 })
@@ -26,12 +26,12 @@ const mapDispatchToProps = {
 }
 
 const handlerMap = {
-  handleClose: props => event => {
+  handleClose: props => (event) => {
     const { removeNode, removeNodeLinks, nodeId } = props
     removeNodeLinks(nodeId)
     removeNode(nodeId)
   },
-  handleMouseDown: props => event => {
+  handleMouseDown: props => (event) => {
     const { nodeId, setSelected, pos, updateDeltaPos } = props
     setSelected(nodeId)
     updateDeltaPos(event.clientX - pos[0], event.clientY - pos[1])
@@ -44,7 +44,7 @@ const handlerMap = {
     const { nodeId, updateValue } = props
     updateValue([nodeId, 'config', name, 'value'], payload)
   },
-  toggleSize: props => event => {
+  toggleSize: props => (event) => {
     const { nodeId, toggleNode, rerenderLinks } = props
     toggleNode(nodeId)
   }

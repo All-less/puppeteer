@@ -14,9 +14,8 @@ const mapStateToProps = (state, props) => {
       src: src.pos,
       dst: dst.pos
     }
-  } else {
-    return { computed: false }
   }
+  return { computed: false }
 }
 
 export default compose(

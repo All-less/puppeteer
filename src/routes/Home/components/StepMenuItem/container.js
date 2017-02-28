@@ -9,7 +9,7 @@ const mapDispatchToProps = {
 }
 
 const handlerMap = {
-  handleClick: props => event => {
+  handleClick: props => (event) => {
     const { index, toggle } = props
     toggle(index)
   }

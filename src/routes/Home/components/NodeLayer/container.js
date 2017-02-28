@@ -3,7 +3,7 @@ import { compose } from 'recompose'
 
 import NodeLayer from './component'
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   nodeMap: state.nodes
 })
 

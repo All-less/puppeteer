@@ -15,10 +15,10 @@ class StepMenu extends React.Component {
       <aside
         className={asideClass} onMouseMove={handleMouseMove}
         onMouseUp={handleMouseUp}
-        >
+      >
         {
           items.map((item, index) => (
-            <StepMenuItem {...item} phase={item.name} key={index} index={index}/>
+            <StepMenuItem {...item} phase={item.name} key={index} index={index} />
           ))
         }
       </aside>

@@ -8,7 +8,7 @@ import StatusMask from '../StatusMask'
 import { setModels } from '../../modules/model'
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   userId: state.auth.get('userId')
 })
 
@@ -41,7 +41,7 @@ const getModelListOptions = {
         setTimeout(() => { setModels(result.data.modelList) }, 0)
       }
       return prev
-    },
+    }
   }),
   skip: ({ userId }) => (userId === null) // skip if the user is not logged in
 }

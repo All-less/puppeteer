@@ -13,7 +13,7 @@ export const intercept = (check, callback) => {
 }
 
 // the following middleware will intercept data fetched by apollo
-export default (store) => (next) => (action) => {
+export default store => next => (action) => {
   if (action.type === 'APOLLO_QUERY_RESULT') {
     const data = action.result.data
     interceptors.forEach(({ check, callback }) => {

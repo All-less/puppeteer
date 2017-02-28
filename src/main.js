@@ -7,8 +7,8 @@ import { ApolloProvider } from 'react-apollo'
 import createStore from './store/createStore'
 import client from './store/apollo'
 
-import injectTapEventPlugin from 'react-tap-event-plugin';
-injectTapEventPlugin();
+import injectTapEventPlugin from 'react-tap-event-plugin'
+injectTapEventPlugin()
 
 // ========================================================
 // Store Instantiation
@@ -25,7 +25,7 @@ let render = () => {
   const routes = require('./routes/index').default(store)
   const root = (
     <ApolloProvider store={store} client={client}>
-      <Router history={browserHistory} children={routes}/>
+      <Router history={browserHistory} children={routes} />
     </ApolloProvider>
   )
 

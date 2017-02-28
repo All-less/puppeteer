@@ -9,7 +9,7 @@ import { updateNodePos, removeNode } from '../../modules/nodes'
 import { setCreating } from '../../modules/editor'
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   items: state.menu.items,
   creatingNodeId: state.editor.creatingNodeId
 })
@@ -45,14 +45,14 @@ const getStepListOptions = {
 }
 
 const handlerMap = {
-  handleMouseMove: props => event => {
+  handleMouseMove: props => (event) => {
     event.preventDefault()
     const { creatingNodeId, updateNodePos } = props
     if (creatingNodeId) {
       updateNodePos(creatingNodeId, event.clientX, event.clientY)
     }
   },
-  handleMouseUp: props => event => {
+  handleMouseUp: props => (event) => {
     event.preventDefault()
     const { creatingNodeId, setCreating, removeNode } = props
     if (creatingNodeId) {

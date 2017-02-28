@@ -4,11 +4,11 @@ import _ from 'lodash'
 
 export const resetPortPos = createAction(
   'NODES/RESET_PORT_POS',
-  (nodeId) => nodeId
+  nodeId => nodeId
 )
 export const setPortPos = createAction(
   'NODES/SET_PORT_POS',
-  (nodeId, portType, portName, pos) => ({ path: [ nodeId, portType, portName ], pos})
+  (nodeId, portType, portName, pos) => ({ path: [nodeId, portType, portName], pos })
 )
 export const moveNode = createAction(
   'NODES/MOVE_NODE',
@@ -24,7 +24,7 @@ export const updateNodePos = createAction(
 )
 export const removeNode = createAction(
   'NODES/REMOVE_NODE',
-  (nodeId) => nodeId
+  nodeId => nodeId
 )
 export const updateValue = createAction(
   'NODES/UPDATE_VALUE',
@@ -68,9 +68,9 @@ const handlerMap = {
   },
   [resetPortPos]: (state, action) => {
     const node = state[action.payload]
-    const update = (value, key) => { value['computed'] = false }
-    _.forOwn(node['inPorts'], update)
-    _.forOwn(node['outPorts'], update)
+    const update = (value, key) => { value.computed = false }
+    _.forOwn(node.inPorts, update)
+    _.forOwn(node.outPorts, update)
     return { [action.payload]: node, ...state }
   },
   [moveNode]: (state, action) => {
@@ -115,7 +115,7 @@ const handlerMap = {
   [setNodes]: (state, action) => (action.payload),
   [toggleNode]: (state, action) => {
     const res = _.assign({}, state)
-    return _.update(res, [action.payload, 'expanded'], (prev) => (!prev))
+    return _.update(res, [action.payload, 'expanded'], prev => (!prev))
   }
 }
 

@@ -20,16 +20,15 @@ const handlerMap = {
     const { src, dst } = action.payload
     if (src.type === dst.type || src.id === dst.id || src.port === dst.port) {
       return state
-    } else {
-      return {
-        ...state,
-        [_.uniqueId()]: src.type === 'out' ? action.payload : { src: dst, dst: src }
-      }
+    }
+    return {
+      ...state,
+      [_.uniqueId()]: src.type === 'out' ? action.payload : { src: dst, dst: src }
     }
   },
   [removeNodeLinks]: (state, action) => {
     const id = action.payload
-    return _.omitBy(state, (link) => (link.src.id === id || link.dst.id === id))
+    return _.omitBy(state, link => (link.src.id === id || link.dst.id === id))
   },
   [setLinks]: (state, action) => (action.payload)
 }

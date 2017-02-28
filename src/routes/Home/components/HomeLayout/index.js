@@ -29,8 +29,8 @@ class HomeLayout extends React.Component {
               </div>
               <div
                 className={cn('mdl-cell', 'mdl-cell--2-col', style.part)}
-                style={{width: 'calc(16.666667% + 16px)' /* overwrite silly margin */}}
-                >
+                style={{ width: 'calc(16.666667% + 16px)' /* overwrite silly margin */}}
+              >
                 <StatusPanel />
               </div>
             </div>

@@ -25,7 +25,7 @@ const selectStyle = {
     backgroundColor: 'white',
     borderRadius: 4,
     boxShadow: 'none',
-    padding: 0,
+    padding: 0
   },
   iconStyle: {
     marginTop: -8
@@ -53,9 +53,9 @@ class ConfigSelect extends Component {
         <SelectField
           value={value} autoWidth fullWidth={false} onChange={handleChange}
           underlineShow={false} {...selectStyle}
-          >
+        >
           {
-            (type === 'BOOL' ? ['是', '否'] : options).map((option) => (
+            (type === 'BOOL' ? ['是', '否'] : options).map(option => (
               <MenuItem key={option} value={option} primaryText={option} />
             ))
           }

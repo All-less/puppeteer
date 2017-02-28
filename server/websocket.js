@@ -31,8 +31,6 @@ const send = (userId, stepRes) => {
 }
 
 module.exports = {
-  default: (server, options) => {
-    return configure(socketIo(server), options)
-  },
+  default: (server, options) => configure(socketIo(server), options),
   send
 }

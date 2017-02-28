@@ -20,7 +20,7 @@ export const resetModelThunk = () => (dispatch) => {
   dispatch(setModelExtra(''))
   dispatch(setCurrent(null))
 }
-export const setCurrentThunk = (name) => (dispatch, getState) => {
+export const setCurrentThunk = name => (dispatch, getState) => {
   const { links, nodes, extra } = _.find(getState().model.list, { name })
   // the following order is necessary
   dispatch(setLinks({})) // clear all links
@@ -69,7 +69,7 @@ const handlerMap = {
     const model = action.payload
     const res = {
       ...state,
-      list: _.concat(_.filter(state.list, (o) => (o._id !== model._id)), model)
+      list: _.concat(_.filter(state.list, o => (o._id !== model._id)), model)
     }
     return res
   },

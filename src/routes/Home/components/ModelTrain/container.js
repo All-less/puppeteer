@@ -7,7 +7,7 @@ import ModelTrain from './component'
 import { toggleRunning, clearRes } from '../../modules/model'
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   curName: state.model.curName,
   running: state.model.running,
   res: state.model.res
@@ -47,7 +47,7 @@ const createProps = ({ dispatch, mutate, curName }) => ({
 })
 
 const handlersMap = {
-  handleRun: ({ runModelThunk }) => event => {
+  handleRun: ({ runModelThunk }) => (event) => {
     runModelThunk()
   }
 }

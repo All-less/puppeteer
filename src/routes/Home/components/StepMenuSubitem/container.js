@@ -8,7 +8,7 @@ import { createNode } from '../../modules/nodes'
 import { setCreating } from '../../modules/editor'
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   creatingNodeId: state.editor.creatingNodeId
 })
 
@@ -18,7 +18,7 @@ const mapDispatchToProps = {
 }
 
 const handlerMap = {
-  handleMouseDown: props => event => {
+  handleMouseDown: props => (event) => {
     event.preventDefault()
     const {
       creatingNodeId, setCreating, createNode, phase, step, config, backend

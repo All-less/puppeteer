@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import LinkLayer from './component'
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   editorOrigin: state.editor.origin,
   creatingLink: state.editor.creatingLink,
   creatingLinkStart: state.editor.creatingLinkStart,

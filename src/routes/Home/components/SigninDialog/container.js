@@ -34,18 +34,18 @@ const mapDispatchToProps = {
 }
 
 const handlerMap = {
-  handleClose: props => event => {
+  handleClose: props => (event) => {
     props.toggleSignin()
   },
-  handleUpperChange: props => event => {
+  handleUpperChange: props => (event) => {
     props.setError('')
     props.setUsername(event.target.value)
   },
-  handleLowerChange: props => event => {
+  handleLowerChange: props => (event) => {
     props.setError('')
     props.setPassword(event.target.value)
   },
-  handleSubmit: props => event => {
+  handleSubmit: props => (event) => {
     const {
       mutate, setError, username, password,
       updateUser, toggleSignin, startSocket, initSocketThunk

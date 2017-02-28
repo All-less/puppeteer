@@ -20,7 +20,7 @@ const logout = gql`
   }
 `
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   username: state.auth.get('username'),
   userId: state.auth.get('userId')
 })
@@ -33,13 +33,13 @@ const mapDispatchToProps = {
 }
 
 const handlerMap = {
-  handleSignin: props => event => {
+  handleSignin: props => (event) => {
     props.toggleSignin()
   },
-  handleSignup: props => event => {
+  handleSignup: props => (event) => {
     props.toggleSignup()
   },
-  handleLogout: props => event => {
+  handleLogout: props => (event) => {
     const { mutate, updateUser, userId, stopSocket } = props
     mutate({ variables: { userId } })
       .then((res) => {

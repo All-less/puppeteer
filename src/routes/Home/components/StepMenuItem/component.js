@@ -1,7 +1,7 @@
-import React, { Component, PropTypes} from 'react'
+import React, { Component, PropTypes } from 'react'
 import cn from 'classnames'
-import FontIcon from 'material-ui/FontIcon';
-import { VelocityTransitionGroup } from 'velocity-react';
+import FontIcon from 'material-ui/FontIcon'
+import { VelocityTransitionGroup } from 'velocity-react'
 
 import style from './style.scss'
 import StepMenuSubitem from '../StepMenuSubitem'
@@ -19,7 +19,7 @@ class StepMenuItem extends Component {
       <div>
         <a className={itemClass} href="javascript:void(0);" onClick={handleClick}>
           <span className={textClass}>{phase}</span>
-          <FontIcon className={arrowClass} style={{fontSize: '16px'}}>
+          <FontIcon className={arrowClass} style={{ fontSize: '16px' }}>
             { expanded ? 'expand_less' : 'expand_more' }
           </FontIcon>
         </a>
@@ -29,7 +29,7 @@ class StepMenuItem extends Component {
               <StepMenuSubitem
                 phase={phase} step={subitem.name} key={index} backend={subitem.backend}
                 color={'color'} config={JSON.parse(subitem.config)}
-                />
+              />
             ))
           }
         </VelocityTransitionGroup>

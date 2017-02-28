@@ -5,7 +5,7 @@ import ModelExtra from './component'
 import { setModelExtra } from '../../modules/model'
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   value: state.model.extra
 })
 

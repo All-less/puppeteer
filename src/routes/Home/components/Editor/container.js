@@ -11,7 +11,7 @@ import {
 import { updateNodePos } from '../../modules/nodes'
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   origin: state.editor.origin,
   selectedNodeId: state.editor.selectedNodeId,
   creatingNodeId: state.editor.creatingNodeId,

@@ -5,27 +5,17 @@ const execModel = require('./train')
 const ModelModel = require('../models/model').model
 
 const ModelResolver = {
-  modelList: ({ userId }) => {
-    return ModelModel.find({ user: userId })
-  },
-  createModel: ({ userId, model }) => {
-    return (new ModelModel(
+  modelList: ({ userId }) => ModelModel.find({ user: userId }),
+  createModel: ({ userId, model }) => (new ModelModel(
       _.assign({}, model, { user: userId })
-    )).save()
-  },
-  updateModel: ({ id, model }) => {
-    return ModelModel.findById(id)
+    )).save(),
+  updateModel: ({ id, model }) => ModelModel.findById(id)
       .then((res) => {
         _.assign(res, model)
         return res.save()
-      })
-  },
-  deleteModel: ({ id }) => {
-    return ModelModel.findById(id)
-      .then((res) => {
-        return res.remove()
-      })
-  },
+      }),
+  deleteModel: ({ id }) => ModelModel.findById(id)
+      .then(res => res.remove()),
   runModel: ({ model }, req) => {
     setTimeout(() => {
       execModel(model, req.session.userId)

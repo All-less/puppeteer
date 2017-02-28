@@ -16,7 +16,7 @@ class StepMenuSubitem extends Component {
         <a
           className={subitemClass} href="javascript:void(0);"
           onMouseDown={handleMouseDown}
-          >
+        >
           <span className={textClass}>{step}</span>
         </a>
       </div>

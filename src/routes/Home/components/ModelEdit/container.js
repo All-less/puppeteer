@@ -7,7 +7,7 @@ import ModelEdit from './component'
 import { addModel, updateModel, setModelEditValue } from '../../modules/model'
 
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   curName: state.model.curName,
   curId: state.model.curId,
   userId: state.auth.get('userId'),

@@ -25,7 +25,7 @@ const app = express()
 app.use(logger(project.env === 'development' ? 'dev' : 'default'))
 
 // session
-const session =  require('express-session')
+const session = require('express-session')
 const MongoStore = require('connect-mongo')(session)
 const sessionStore = new MongoStore({ mongooseConnection: mongoose.connection })
 const sessionSetting = _.assign({}, project.session, { store: sessionStore })
@@ -57,13 +57,13 @@ if (project.env === 'development') {
 
   debug('Enabling webpack dev and HMR middleware')
   app.use(require('webpack-dev-middleware')(compiler, {
-    publicPath  : webpackConfig.output.publicPath,
-    contentBase : project.paths.client(),
-    hot         : true,
-    quiet       : project.compiler_quiet,
-    noInfo      : project.compiler_quiet,
-    lazy        : false,
-    stats       : project.compiler_stats
+    publicPath: webpackConfig.output.publicPath,
+    contentBase: project.paths.client(),
+    hot: true,
+    quiet: project.compiler_quiet,
+    noInfo: project.compiler_quiet,
+    lazy: false,
+    stats: project.compiler_stats
   }))
   app.use(require('webpack-hot-middleware')(compiler, {
     path: '/__webpack_hmr'
@@ -78,7 +78,7 @@ if (project.env === 'development') {
   // This rewrites all routes requests to the root /index.html file
   // (ignoring file requests). If you want to implement universal
   // rendering, you'll want to remove this middleware.
-  app.use('*', function (req, res, next) {
+  app.use('*', (req, res, next) => {
     const filename = path.join(compiler.outputPath, 'index.html')
     compiler.outputFileSystem.readFile(filename, (err, result) => {
       if (err) {
@@ -104,7 +104,7 @@ if (project.env === 'development') {
   app.use(express.static(project.paths.dist()))
 }
 
-const server =  http.createServer(app)
+const server = http.createServer(app)
 
 // inject socket.io logic
 require('./websocket').default(server, { session: sessionSetting })

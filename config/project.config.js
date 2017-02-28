@@ -96,14 +96,14 @@ Edit at Your Own Risk
 // N.B.: globals added here must _also_ be added to .eslintrc
 config.globals = {
   'process.env'  : {
-    'NODE_ENV' : JSON.stringify(config.env)
+    NODE_ENV : JSON.stringify(config.env)
   },
-  'NODE_ENV'     : config.env,
-  '__DEV__'      : config.env === 'development',
-  '__PROD__'     : config.env === 'production',
-  '__TEST__'     : config.env === 'test',
-  '__COVERAGE__' : !argv.watch && config.env === 'test',
-  '__BASENAME__' : JSON.stringify(process.env.BASENAME || '')
+  NODE_ENV     : config.env,
+  __DEV__      : config.env === 'development',
+  __PROD__     : config.env === 'production',
+  __TEST__     : config.env === 'test',
+  __COVERAGE__ : !argv.watch && config.env === 'test',
+  __BASENAME__ : JSON.stringify(process.env.BASENAME || '')
 }
 
 // ------------------------------------
@@ -125,13 +125,13 @@ config.compiler_vendors = config.compiler_vendors
 // ------------------------------------
 // Utilities
 // ------------------------------------
-function base () {
+function base() {
   const args = [config.path_base].concat([].slice.call(arguments))
-  return path.resolve.apply(path, args)
+  return path.resolve(...args)
 }
 
 config.paths = {
-  base   : base,
+  base,
   client : base.bind(null, config.dir_client),
   public : base.bind(null, config.dir_public),
   dist   : base.bind(null, config.dir_dist)

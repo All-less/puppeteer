@@ -35,7 +35,7 @@ const getBackendListOptions = {
   })
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   backends: state.backend.backends
 })
 
@@ -46,7 +46,7 @@ const mapDispatchToProps = {
 }
 
 const handlerMap = {
-  handleOperation: props => id => event => {
+  handleOperation: props => id => (event) => {
     const { openPopover } = props
     openPopover(event.target, id)
   }

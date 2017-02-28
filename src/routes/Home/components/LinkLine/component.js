@@ -11,11 +11,10 @@ class LinkLine extends Component {
         <path
           className={style.link}
           d={computePath(src, dst, editorOrigin)}
-        ></path>
+        />
       )
-    } else {
-      return null
     }
+    return null
   }
 }
 
