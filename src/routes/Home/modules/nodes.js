@@ -86,7 +86,7 @@ const handlerMap = {
           phase,
           pos,
           step,
-          config,
+          config: _.cloneDeep(config),
           backend,
           inPorts: { in: { computed: false, pos: [0, 0] } },
           outPorts: { out: { computed: false, pos: [0, 0] } },
